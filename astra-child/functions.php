@@ -1,32 +1,54 @@
 <?php
-// Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
 
-// BEGIN ENQUEUE PARENT ACTION
-// AUTO GENERATED - Do not modify or remove comment markers above or below:
+/**
+ * Astra Child - Functions
+ * Estrategia: Tailwind + E-commerce Auditor OS
+ */
 
-if ( !function_exists( 'chld_thm_cfg_locale_css' ) ):
-    function chld_thm_cfg_locale_css( $uri ){
-        if ( empty( $uri ) && is_rtl() && file_exists( get_template_directory() . '/rtl.css' ) )
-            $uri = get_template_directory_uri() . '/rtl.css';
-        return $uri;
-    }
-endif;
-add_filter( 'locale_stylesheet_uri', 'chld_thm_cfg_locale_css' );
-         
-if ( !function_exists( 'child_theme_configurator_css' ) ):
-    function child_theme_configurator_css() {
-        wp_enqueue_style( 'chld_thm_cfg_child', trailingslashit( get_stylesheet_directory_uri() ) . 'style.css', array( 'woocommerce-general' ) );
-    }
-endif;
-add_action( 'wp_enqueue_scripts', 'child_theme_configurator_css', 10 );
+// =============================================
+// 1. CARGAR TAILWIND COMPILADO (Con Cache-Busting)
+// =============================================
+add_action('wp_enqueue_scripts', 'astra_child_enqueue_tailwind', 20);
+function astra_child_enqueue_tailwind()
+{
+    // Obtiene la ruta física del archivo para leer su fecha de modificación
+    $css_file_path = get_stylesheet_directory() . '/output.css';
+    $version = file_exists($css_file_path) ? filemtime($css_file_path) : '1.0.0';
 
-// END ENQUEUE PARENT ACTION
+    wp_enqueue_style(
+        'astra-child-tailwind',
+        get_stylesheet_directory_uri() . '/output.css',
+        array(),
+        $version // Fuerza al navegador a recargar el CSS solo cuando detecta un cambio nuevo
+    );
+}
 
-/* Cargar Tailwind CSS temporalmente solo en el Carrito */
-add_action( 'wp_head', 'cargar_tailwind_en_carrito' );
-function cargar_tailwind_en_carrito() {
-    if ( is_cart() ) {
-        echo '<script src="https://cdn.tailwindcss.com"></script>';
-    }
+// =============================================
+// 2. QUITAR ESTILOS DE WOOCOMMERCE
+// =============================================
+add_action('wp_enqueue_scripts', 'astra_child_clean_cart_css', 999);
+function astra_child_clean_cart_css()
+{
+    if (!function_exists('is_cart') || !is_cart()) return;
+
+    // Quitamos los estilos base porque Tailwind tiene el control absoluto
+    wp_dequeue_style('woocommerce-general');
+    wp_dequeue_style('woocommerce-layout');
+    wp_dequeue_style('woocommerce-smallscreen');
+}
+
+// =============================================
+// 3. BENTO BOX PARA TOTALES
+// =============================================
+add_action('woocommerce_before_cart_totals', 'astra_child_bento_box_open', 5);
+function astra_child_bento_box_open()
+{
+    // Solo abrimos el contenedor, WooCommerce se encarga de imprimir los títulos
+    echo '<div class="bento-box">';
+}
+
+add_action('woocommerce_after_cart_totals', 'astra_child_bento_box_close', 15);
+function astra_child_bento_box_close()
+{
+    echo '</div>';
 }
