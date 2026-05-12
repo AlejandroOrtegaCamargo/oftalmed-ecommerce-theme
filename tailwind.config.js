@@ -7,11 +7,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        // Montserrat como fuente principal sans
+        sans: ['Montserrat', 'sans-serif'],
+      },
       colors: {
-        brand: {
-          primary: '#145BC4',   /* Tu azul principal */
-          secondary: '#019DFB', /* Tu azul para los hover/botones */
-        },
+        // Estructura corregida para usar bg-brand-primary o text-brand-secondary
+        'brand-primary': '#145BC4',
+        'brand-secondary': '#019DFB',
       },
     },
   },
