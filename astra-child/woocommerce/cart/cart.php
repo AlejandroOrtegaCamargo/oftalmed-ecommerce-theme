@@ -10,7 +10,13 @@ defined('ABSPATH') || exit;
 
 do_action('woocommerce_before_cart'); ?>
 
+<!-- El wrapper maestro .woocommerce es crucial para el AJAX -->
 <div class="woocommerce max-w-6xl mx-auto py-12 px-4">
+
+    <!-- INYECTADO: Contenedor para Avisos de WooCommerce -->
+    <div class="woocommerce-notices-wrapper mb-8">
+        <?php wc_print_notices(); ?>
+    </div>
 
     <!-- BARRA DE PROGRESO DE COMPRA -->
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12 pb-6 border-b border-gray-100">
@@ -51,10 +57,11 @@ do_action('woocommerce_before_cart'); ?>
         </nav>
     </div>
 
+    <!-- ESTRUCTURA A DOS COLUMNAS -->
     <div class="flex flex-col lg:flex-row gap-12">
 
-        <!-- FASE 2: LISTADO DE PRODUCTOS (ULTRA-MINIMALISTA) -->
-        <form id="oftalmed-cart-form" class="woocommerce-cart-form lg:w-7/12 bg-white rounded-3xl border border-gray-100 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
+        <!-- FASE 2: LISTADO DE PRODUCTOS (ULTRA-MINIMALISTA + AUDITORÍA UX) -->
+        <form id="oftalmed-cart-form" class="woocommerce-cart-form lg:w-7/12 h-fit bg-white rounded-3xl border border-gray-100 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
 
             <!-- Cabecera interna del Carrito -->
             <div class="px-10 py-6 border-b border-gray-200 flex justify-between items-center bg-white">
@@ -74,6 +81,10 @@ do_action('woocommerce_before_cart'); ?>
                     if ($_product && $_product->exists() && $cart_item['quantity'] > 0):
                         $product_permalink = $_product->is_visible() ? $_product->get_permalink($cart_item) : '';
                         $border_class = ($cart_item_key !== $last_item_key) ? 'border-b border-gray-200' : '';
+
+                        // AUDITORÍA: Obtener precios unitarios y subtotales
+                        $product_price = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key);
+                        $product_subtotal = apply_filters('woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal($_product, $cart_item['quantity']), $cart_item, $cart_item_key);
                 ?>
                         <div class="cart_item flex flex-col sm:flex-row py-12 gap-10 items-start <?php echo $border_class; ?>">
 
@@ -87,7 +98,7 @@ do_action('woocommerce_before_cart'); ?>
 
                             <div class="flex flex-1 flex-col justify-start">
 
-                                <!-- Título y Precio Subtotal -->
+                                <!-- Título y Precio (Refactorizado para Claridad UX) -->
                                 <div class="flex justify-between items-start gap-8 w-full">
                                     <div class="flex-1">
                                         <h3 class="text-base font-bold text-gray-800 leading-snug tracking-tight">
@@ -96,10 +107,17 @@ do_action('woocommerce_before_cart'); ?>
                                             </a>
                                         </h3>
                                     </div>
+
+                                    <!-- FIX AUDITORÍA: Subtotal Bold + Unitario Muted con distancias corregidas -->
                                     <div class="text-right">
-                                        <p class="text-lg font-black text-gray-950 tracking-tighter">
-                                            <?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
+                                        <p class="text-lg font-black text-gray-950 tracking-tighter !mb-0 line-height-none">
+                                            <?php echo $product_subtotal; ?>
                                         </p>
+                                        <?php if ($cart_item['quantity'] > 1) : ?>
+                                            <p class="text-[11px] font-medium text-gray-400 !mb-0 mt-0.5">
+                                                <?php echo $product_price; ?> c/u
+                                            </p>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
 
@@ -111,10 +129,8 @@ do_action('woocommerce_before_cart'); ?>
 
                                         <!-- STEPPER MINIMALISTA [- 1 +] -->
                                         <div class="flex items-center border border-gray-200 rounded-lg h-[34px] bg-white overflow-hidden w-[90px]">
-                                            <!-- Botón Restar -->
                                             <button type="button" class="qty-btn w-8 h-full flex items-center justify-center text-gray-400 hover:text-brand-primary transition-colors text-lg" data-step="-1">&minus;</button>
 
-                                            <!-- Input de Cantidad Nativo Oculto -->
                                             <div class="flex-1 custom-qty-styles h-full flex items-center justify-center">
                                                 <?php
                                                 echo woocommerce_quantity_input(array(
@@ -140,7 +156,6 @@ do_action('woocommerce_before_cart'); ?>
                                                 ?>
                                             </div>
 
-                                            <!-- Botón Sumar -->
                                             <button type="button" class="qty-btn w-8 h-full flex items-center justify-center text-gray-400 hover:text-brand-primary transition-colors text-lg" data-step="1">+</button>
                                         </div>
                                     </div>
@@ -169,7 +184,6 @@ do_action('woocommerce_before_cart'); ?>
                             const input = item.querySelector('.qty-input-field');
                             const minusBtn = item.querySelector('.qty-btn[data-step="-1"]');
                             if (input && minusBtn) {
-                                // Si la cantidad es 1, añadimos clase de bloqueo y bajamos opacidad
                                 if (parseInt(input.value) <= 1) {
                                     minusBtn.classList.add('pointer-events-none', 'opacity-20');
                                 } else {
@@ -180,7 +194,6 @@ do_action('woocommerce_before_cart'); ?>
                     }
 
                     if (cartForm) {
-                        // Ejecutar al cargar
                         updateBtnState();
 
                         cartForm.addEventListener('click', function(e) {
@@ -192,7 +205,6 @@ do_action('woocommerce_before_cart'); ?>
                                 let currentValue = parseInt(input.value) || 1;
                                 let newValue = currentValue + step;
 
-                                // Solo procedemos si es mayor o igual a 1
                                 if (newValue >= 1) {
                                     input.value = newValue;
                                     input.dispatchEvent(new Event('change', {
@@ -214,9 +226,11 @@ do_action('woocommerce_before_cart'); ?>
             </script>
         </form>
 
-        <!-- FASE 3: CONTENEDOR DE TOTALES -->
-        <div class="cart-collaterals lg:w-5/12">
+        <!-- FASE 3: BENTO BOX RESUMEN -->
+        <div class="lg:w-5/12 h-fit">
+
             <?php woocommerce_cart_totals(); ?>
+
         </div>
     </div>
 </div>
