@@ -69,3 +69,30 @@ add_filter('woocommerce_add_message', function ($message) {
 
 // Apagamos el aviso nativo de "Producto eliminado" (El modal JS toma el control)
 add_filter('woocommerce_cart_item_removed_notice_type', '__return_empty_string');
+
+
+// =============================================
+// 5. PERSONALIZACIÓN DE TEXTOS CTA
+// =============================================
+
+/**
+ * Cambia el texto del botón "Finalizar Compra" específicamente en el Checkout
+ */
+add_filter('woocommerce_order_button_text', function () {
+    return 'Revisar y pagar';
+});
+
+/**
+ * Cambia el texto del botón en la página del Carrito (Bento Box de Resumen)
+ */
+remove_action('woocommerce_proceed_to_checkout', 'woocommerce_button_proceed_to_checkout', 20);
+add_action('woocommerce_proceed_to_checkout', 'oftalmed_custom_checkout_button_text', 20);
+
+function oftalmed_custom_checkout_button_text()
+{
+?>
+    <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="checkout-button button alt wc-forward">
+        <?php esc_html_e('Revisar y pagar', 'woocommerce'); ?>
+    </a>
+<?php
+}
