@@ -12,19 +12,38 @@ add_action('wp_enqueue_scripts', 'astra_child_enqueue_tailwind', 25); // Priorid
 function astra_child_enqueue_tailwind()
 {
     $css_file_path = get_stylesheet_directory() . '/output.css';
-    // filemtime asegura que si cambias un color en el config, el navegador descargue el nuevo CSS
     $version = file_exists($css_file_path) ? filemtime($css_file_path) : '1.0.0';
 
     wp_enqueue_style(
         'astra-child-tailwind',
         get_stylesheet_directory_uri() . '/output.css',
-        array('astra-theme-css'), // Declaramos que dependemos de Astra para cargar después
+        array('astra-theme-css'),
         $version
     );
 }
 
 // =============================================
-// 2. QUITAR ESTILOS DE WOOCOMMERCE (Limpieza de Auditoría)
+// 2. CARGAR SCRIPTS DE MODALES (Carrito)
+// =============================================
+add_action('wp_enqueue_scripts', 'oftalmed_enqueue_custom_cart_scripts');
+function oftalmed_enqueue_custom_cart_scripts()
+{
+    // Solo cargamos el JS si estamos en el carrito y el archivo existe
+    $js_file_path = get_stylesheet_directory() . '/assets/js/cart-modals.js';
+
+    if (is_cart() && file_exists($js_file_path)) {
+        wp_enqueue_script(
+            'oftalmed-cart-modals',
+            get_stylesheet_directory_uri() . '/assets/js/cart-modals.js',
+            array(),
+            filemtime($js_file_path),
+            true // En el footer
+        );
+    }
+}
+
+// =============================================
+// 3. QUITAR ESTILOS DE WOOCOMMERCE (Limpieza de Auditoría)
 // =============================================
 add_action('wp_enqueue_scripts', 'astra_child_clean_cart_css', 999);
 function astra_child_clean_cart_css()
@@ -37,16 +56,16 @@ function astra_child_clean_cart_css()
 }
 
 // =============================================
-// 3. SILENCIAR AVISO ESPECÍFICO
+// 4. GESTIÓN DE AVISOS Y NOTIFICACIONES
 // =============================================
+
+// Evitamos el molesto banner de "Carrito actualizado"
 add_filter('woocommerce_add_message', function ($message) {
-    // Evitamos el molesto banner de "Carrito actualizado" cada que mueves el stepper
     if (strpos($message, 'Carrito actualizado') !== false) {
         return false;
     }
     return $message;
 });
 
-// NOTA: La sección de "Bento Box" vía hooks se eliminó 
-// porque ya la integramos directamente en los templates (cart-totals.php) 
-// para tener un código más limpio y eficiente.
+// Apagamos el aviso nativo de "Producto eliminado" (El modal JS toma el control)
+add_filter('woocommerce_cart_item_removed_notice_type', '__return_empty_string');
