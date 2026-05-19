@@ -562,6 +562,111 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ==========================================================================
+     COMPONENTES INTERACTIVOS GLOBALES (SISTEMA DE DISEÑO OFTALMED)
+     ========================================================================== */
+
+/* Tarjeta Bento Global con sombra tenue inicial y animación de Zoom */
+
+.oftalmed-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 1.5rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding: 1.25rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+@media (min-width: 1024px) {
+  .oftalmed-card {
+    padding: 1.5rem;
+  }
+}
+
+.oftalmed-card {
+  --tw-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  --tw-shadow-colored: 0 20px 40px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  /* USANDO EL NUEVO TOKEN CONFIGURADO */
+  will-change: transform, box-shadow;
+}
+
+.oftalmed-card:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(249 250 251 / var(--tw-border-opacity, 1));
+  --tw-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  --tw-shadow-colored: 0 25px 50px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  /* USANDO EL NUEVO TOKEN DE HOVER */
+  transform: translateY(-4px) scale(1.015);
+}
+
+/* Botón Secundario Global (Sólido - Brand Accent) */
+
+.btn-oftalmed-secondary {
+  display: flex;
+  height: 2.5rem;
+  width: 100%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  border-width: 1px;
+  border-color: transparent;
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 157 251 / var(--tw-bg-opacity, 1));
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  text-decoration-line: none;
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+@media (min-width: 1024px) {
+  .btn-oftalmed-secondary {
+    height: 2.75rem;
+  }
+}
+
+.btn-oftalmed-secondary:hover {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(34 172 255 / var(--tw-bg-opacity, 1)) !important;
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color) !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+
+.btn-oftalmed-secondary:active {
+  --tw-scale-x: 0.97 !important;
+  --tw-scale-y: 0.97 !important;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+}
+
+/* ==========================================================================
+     MÓDULO: CARRITO DE COMPRAS (WIDGETS Y PASOS)
+     ========================================================================== */
+
 /* BARRA DE PROGRESO */
 
 /* ELIMINAR PILL */
@@ -592,7 +697,7 @@ html {
   background-color: rgb(230 245 255 / 0.7);
 }
 
-/* STEPPER */
+/* STEPPER DE CANTIDAD */
 
 .custom-qty-styles input[type=number]::-webkit-inner-spin-button, 
   .custom-qty-styles input[type=number]::-webkit-outer-spin-button {
@@ -651,7 +756,9 @@ html {
   line-height: 1 !important;
 }
 
-/* TOTALES */
+/* ==========================================================================
+     MÓDULO: TOTALES Y RESUMEN DE PEDIDO (BENTO SIDEBAR)
+     ========================================================================== */
 
 .cart_totals .bento-box,
   .cart_totals > div[class*="bento-box"] {
@@ -808,7 +915,11 @@ html {
   line-height: 1 !important;
 }
 
-/* BOTONES */
+/* ==========================================================================
+     MÓDULO: BOTONES PRINCIPALES (CTAs)
+     ========================================================================== */
+
+/* Botón de Checkout Principal (Finalizar Compra) */
 
 .cart_totals .wc-proceed-to-checkout {
   margin-top: 4rem;
@@ -842,6 +953,8 @@ html {
   --tw-shadow-colored: 0 8px 20px var(--tw-shadow-color) !important;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 }
+
+/* Botón de Continuar Comprando */
 
 .btn-continue-shopping {
   display: flex !important;
@@ -878,7 +991,17 @@ html {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-/* TRUST SIGNALS */
+/* Botón Experimental de Cotización */
+
+#btn-fake-cotizacion:hover span {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* ==========================================================================
+     MÓDULO: TRUST SIGNALS Y ALERTAS DE SISTEMA
+     ========================================================================== */
 
 .trust-signals {
   margin-top: 2rem !important;
@@ -908,7 +1031,7 @@ html {
   color: rgb(1 157 251 / var(--tw-text-opacity, 1)) !important;
 }
 
-/* NOTIFICACIONES */
+/* NOTIFICACIONES WOOCOMMERCE */
 
 .woocommerce-notices-wrapper:empty {
   display: none;
@@ -1016,6 +1139,10 @@ html {
   margin-bottom: 2.5rem !important;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .mb-12 {
   margin-bottom: 3rem;
 }
@@ -1024,8 +1151,16 @@ html {
   margin-bottom: 0.5rem;
 }
 
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
 }
 
 .mb-6 {
@@ -1044,6 +1179,10 @@ html {
   margin-top: 0.5rem;
 }
 
+.mt-24 {
+  margin-top: 6rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
 }
@@ -1060,6 +1199,17 @@ html {
   margin-top: 2rem;
 }
 
+.mt-auto {
+  margin-top: auto;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .block {
   display: block;
 }
@@ -1072,8 +1222,16 @@ html {
   display: table;
 }
 
+.grid {
+  display: grid;
+}
+
 .hidden {
   display: none;
+}
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
 }
 
 .\!h-full {
@@ -1106,6 +1264,10 @@ html {
 
 .h-6 {
   height: 1.5rem;
+}
+
+.h-8 {
+  height: 2rem;
 }
 
 .h-\[2px\] {
@@ -1205,6 +1367,10 @@ html {
   flex-shrink: 0;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 .-translate-x-1\/2 {
   --tw-translate-x: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1228,6 +1394,16 @@ html {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -1280,6 +1456,10 @@ html {
 
 .gap-4 {
   gap: 1rem;
+}
+
+.gap-5 {
+  gap: 1.25rem;
 }
 
 .gap-8 {
@@ -1475,6 +1655,10 @@ html {
   padding-top: 0.5rem;
 }
 
+.pt-4 {
+  padding-top: 1rem;
+}
+
 .pt-8 {
   padding-top: 2rem;
 }
@@ -1559,6 +1743,10 @@ html {
   line-height: 1;
 }
 
+.leading-normal {
+  line-height: 1.5;
+}
+
 .leading-snug {
   line-height: 1.375;
 }
@@ -1633,16 +1821,16 @@ html {
   opacity: 0;
 }
 
+.opacity-100 {
+  opacity: 1;
+}
+
 .opacity-20 {
   opacity: 0.2;
 }
 
 .opacity-50 {
   opacity: 0.5;
-}
-
-.opacity-100 {
-  opacity: 1;
 }
 
 .mix-blend-multiply {
@@ -1809,6 +1997,12 @@ html {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.group:hover .group-hover\:scale-105 {
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .group:hover .group-hover\:bg-brand-primary {
   --tw-bg-opacity: 1;
   background-color: rgb(20 91 196 / var(--tw-bg-opacity, 1));
@@ -1864,6 +2058,10 @@ html {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mb-12 {
+    margin-bottom: 3rem;
+  }
+
   .lg\:mt-8 {
     margin-top: 2rem;
   }
@@ -1888,12 +2086,20 @@ html {
     flex: 1 1 0%;
   }
 
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .lg\:flex-row {
     flex-direction: row;
   }
 
   .lg\:gap-10 {
     gap: 2.5rem;
+  }
+
+  .lg\:gap-6 {
+    gap: 1.5rem;
   }
 
   .lg\:overflow-hidden {
@@ -1941,6 +2147,11 @@ html {
     padding-right: 1rem;
   }
 
+  .lg\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
   .lg\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
@@ -1958,6 +2169,11 @@ html {
   .lg\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
+  }
+
+  .lg\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   .lg\:text-xs {

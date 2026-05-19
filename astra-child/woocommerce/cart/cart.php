@@ -258,6 +258,9 @@ do_action('woocommerce_before_cart'); ?>
             <?php woocommerce_cart_totals(); ?>
         </div>
     </div>
+    <div class="w-full mt-24 border-t border-surface-ash pt-4">
+        <?php woocommerce_cross_sell_display(4, 4); ?>
+    </div>
 </div>
 
 <?php do_action('woocommerce_after_cart'); ?>

@@ -70,7 +70,10 @@ add_filter('woocommerce_add_message', function ($message) {
 // Apagamos el aviso nativo de "Producto eliminado" (El modal JS toma el control)
 add_filter('woocommerce_cart_item_removed_notice_type', '__return_empty_string');
 
-
+/**
+ * Oftalmed: Eliminar el mensaje nativo de "Producto añadido al carrito"
+ */
+add_filter('wc_add_to_cart_message_html', '__return_false');
 // =============================================
 // 5. PERSONALIZACIÓN DE TEXTOS CTA
 // =============================================

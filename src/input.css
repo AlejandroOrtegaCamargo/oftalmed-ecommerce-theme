@@ -9,6 +9,41 @@
 }
 
 @layer components {
+  /* ==========================================================================
+     COMPONENTES INTERACTIVOS GLOBALES (SISTEMA DE DISEÑO OFTALMED)
+     ========================================================================== */
+
+  /* Tarjeta Bento Global con sombra tenue inicial y animación de Zoom */
+  .oftalmed-card {
+    @apply bg-surface-default rounded-bento border border-surface-line p-5 lg:p-6 flex flex-col justify-between transition-all duration-300 ease-out;
+    @apply shadow-bento; /* USANDO EL NUEVO TOKEN CONFIGURADO */
+    will-change: transform, box-shadow;
+  }
+
+  .oftalmed-card:hover {
+    @apply border-surface-muted;
+    @apply shadow-bento-hover; /* USANDO EL NUEVO TOKEN DE HOVER */
+    transform: translateY(-4px) scale(1.015);
+  }
+
+  /* Botón Secundario Global (Sólido - Brand Accent) */
+  .btn-oftalmed-secondary {
+    @apply w-full flex items-center justify-center h-10 lg:h-11 text-center text-xs font-bold text-white bg-brand-accent rounded-btn transition-all duration-200 ease-out no-underline shadow-sm select-none border border-transparent;
+  }
+
+  .btn-oftalmed-secondary:hover {
+    @apply bg-brand-hover text-white shadow-md !important;
+  }
+
+  .btn-oftalmed-secondary:active {
+    @apply scale-[0.97] !important;
+  }
+
+
+  /* ==========================================================================
+     MÓDULO: CARRITO DE COMPRAS (WIDGETS Y PASOS)
+     ========================================================================== */
+
   /* BARRA DE PROGRESO */
   .cart-progress-bar .progress-dot { @apply block w-2.5 h-2.5 rounded-full bg-surface-line; }
   .cart-progress-bar .progress-step.is-active .progress-dot { @apply w-3 h-3 bg-brand-primary; }
@@ -18,7 +53,7 @@
     @apply inline-flex items-center justify-center cursor-pointer text-brand-primary text-[12px] font-bold px-6 py-2 rounded-pill bg-brand-light no-underline transition-all hover:bg-brand-light/70; 
   }
 
-  /* STEPPER */
+  /* STEPPER DE CANTIDAD */
   .custom-qty-styles input[type=number]::-webkit-inner-spin-button, 
   .custom-qty-styles input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none !important; margin: 0 !important; }
   .custom-qty-styles .qty-input-field { @apply flex items-center justify-center text-center !important; @apply border-0 ring-0 outline-none bg-transparent !important; line-height: 1 !important; height: 100% !important; }
@@ -26,7 +61,10 @@
 
   .cart_item .line-height-none { line-height: 1 !important; }
 
-  /* TOTALES */
+
+  /* ==========================================================================
+     MÓDULO: TOTALES Y RESUMEN DE PEDIDO (BENTO SIDEBAR)
+     ========================================================================== */
   .cart_totals .bento-box,
   .cart_totals > div[class*="bento-box"] {
     @apply bg-transparent lg:bg-surface-default border-none lg:border lg:border-surface-line shadow-none lg:shadow-bento p-0 lg:p-10 m-0 w-full overflow-visible !important;
@@ -72,7 +110,12 @@
     line-height: 1 !important;
   }
 
-  /* BOTONES */
+
+  /* ==========================================================================
+     MÓDULO: BOTONES PRINCIPALES (CTAs)
+     ========================================================================== */
+  
+  /* Botón de Checkout Principal (Finalizar Compra) */
   .cart_totals .wc-proceed-to-checkout {
     @apply mt-16 ;
   }
@@ -87,6 +130,7 @@
     @apply shadow-btn-hover !important;
   }
 
+  /* Botón de Continuar Comprando */
   .btn-continue-shopping {
     @apply flex items-center justify-center w-full h-[52px] border border-surface-ash bg-surface-default text-text-body text-sm font-bold rounded-btn no-underline transition-all duration-200 !important;
   }
@@ -96,7 +140,16 @@
     @apply shadow-sm;
   }
 
-  /* TRUST SIGNALS */
+  /* Botón Experimental de Cotización */
+  #btn-fake-cotizacion:hover span {
+    @apply underline decoration-1;
+    text-underline-offset: 2px;
+  }
+
+
+  /* ==========================================================================
+     MÓDULO: TRUST SIGNALS Y ALERTAS DE SISTEMA
+     ========================================================================== */
   .trust-signals {
     @apply mt-8 pt-8 border-t border-surface-line flex flex-col gap-4 !important;
   }
@@ -107,7 +160,7 @@
 
   .trust-item svg { @apply w-4 h-4 text-brand-accent !important; }
 
-  /* NOTIFICACIONES */
+  /* NOTIFICACIONES WOOCOMMERCE */
   .woocommerce-notices-wrapper:empty { @apply hidden; }
   .woocommerce-notices-wrapper:not(:empty) { @apply block mb-8 w-full; }
   
