@@ -20,11 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function crearModalEliminar(confirmUrl) {
         if (document.getElementById('oftalmed-remove-modal')) return;
 
+        // El contenedor inicia en opacity-0 y la tarjeta inicia en scale-95 para la animación
         const modalHTML = `
-            <div id="oftalmed-remove-modal" class="fixed inset-0 z-[9999] flex items-center justify-center bg-text-heading/40 backdrop-blur-sm p-4 transition-all duration-300">
-                <div class="bg-surface-default rounded-bento p-8 max-w-sm w-full shadow-bento border border-surface-line relative animate-in fade-in zoom-in duration-200">
+            <div id="oftalmed-remove-modal" class="fixed inset-0 z-[9999] flex items-center justify-center bg-text-heading/40 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300 ease-out">
+                <div id="oftalmed-modal-card" class="bg-surface-default rounded-bento p-8 max-w-sm w-full shadow-bento border border-surface-line relative transform scale-95 transition-transform duration-300 ease-out">
                     
-                    <button id="modal-close-x" class="absolute top-4 right-4 p-2 text-text-muted  hover:text-text-body transition-all bg-surface-line hover:bg-surface-ash rounded-full border-0 shadow-none outline-none">
+                    <button id="modal-close-x" class="absolute top-4 right-4 p-2 text-text-muted hover:text-text-body transition-all bg-surface-line hover:bg-surface-ash rounded-full border-0 shadow-none outline-none">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
@@ -53,13 +54,26 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.insertAdjacentHTML('beforeend', modalHTML);
         
         const modal = document.getElementById('oftalmed-remove-modal');
+        const card = document.getElementById('oftalmed-modal-card');
         const btnSi = document.getElementById('modal-btn-si');
         const btnNo = document.getElementById('modal-btn-no');
         const btnClose = document.getElementById('modal-close-x');
 
+        // ANIMACIÓN DE ENTRADA: Activamos el fundido y escalado un milisegundo después de inyectarlo
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            modal.classList.add('opacity-100');
+            card.classList.remove('scale-95');
+            card.classList.add('scale-100');
+        }, 10);
+
+        // ANIMACIÓN DE SALIDA: Suave desaparición antes de eliminar el nodo del DOM
         const cerrarModal = () => {
+            modal.classList.remove('opacity-100');
             modal.classList.add('opacity-0');
-            setTimeout(() => modal.remove(), 200);
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            setTimeout(() => modal.remove(), 300); // 300ms idénticos a la duración de la transición
         };
 
         btnNo.addEventListener('click', cerrarModal);

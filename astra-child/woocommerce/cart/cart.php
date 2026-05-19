@@ -88,10 +88,16 @@ do_action('woocommerce_before_cart'); ?>
                                                 </a>
                                             </h3>
                                         </div>
-                                        <div class="text-right flex-shrink-0">
+
+                                        <div class="text-right flex-shrink-0 flex flex-col justify-start items-end">
                                             <p class="text-base lg:text-lg font-black text-text-heading tracking-tighter !mb-0 line-height-none">
                                                 <?php echo $product_subtotal; ?>
                                             </p>
+                                            <?php if ($cart_item['quantity'] > 1) : ?>
+                                                <span class="text-[11px] lg:text-xs font-medium text-text-muted mt-1 block tracking-tight">
+                                                    c/u: <?php echo $product_price; ?>
+                                                </span>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
 
