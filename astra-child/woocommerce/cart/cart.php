@@ -52,7 +52,7 @@ do_action('woocommerce_before_cart'); ?>
             <form id="oftalmed-cart-form" class="woocommerce-cart-form h-fit bg-transparent lg:bg-surface-default lg:rounded-bento lg:border lg:border-surface-line lg:shadow-bento overflow-visible lg:overflow-hidden" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
 
                 <div class="px-0 lg:px-10 py-6 border-b border-surface-line flex justify-between items-center bg-transparent lg:bg-surface-default">
-                    <span class="text-[13px] font-bold text-text-muted tracking-normal">Productos en su pedido</span>
+                    <span class="text-[13px] font-bold text-text-muted tracking-normal">Productos en tu pedido</span>
                     <span class="text-[13px] font-bold text-text-muted tracking-normal">
                         <?php echo sprintf(_n('%d unidad', '%d unidades', WC()->cart->get_cart_contents_count(), 'woocommerce'), WC()->cart->get_cart_contents_count()); ?>
                     </span>

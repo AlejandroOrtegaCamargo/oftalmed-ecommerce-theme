@@ -13,30 +13,29 @@
      COMPONENTES INTERACTIVOS GLOBALES (SISTEMA DE DISEÑO OFTALMED)
      ========================================================================== */
 
-  /* Tarjeta Bento Global con sombra tenue inicial y animación de Zoom */
   .oftalmed-card {
     @apply bg-surface-default rounded-bento border border-surface-line p-5 lg:p-6 flex flex-col justify-between transition-all duration-300 ease-out;
-    @apply shadow-bento; /* USANDO EL NUEVO TOKEN CONFIGURADO */
+    @apply shadow-bento;
     will-change: transform, box-shadow;
   }
 
   .oftalmed-card:hover {
     @apply border-surface-muted;
-    @apply shadow-bento-hover; /* USANDO EL NUEVO TOKEN DE HOVER */
+    @apply shadow-bento-hover;
     transform: translateY(-4px) scale(1.015);
   }
 
-  /* Botón Secundario Global (Sólido - Brand Accent) */
   .btn-oftalmed-secondary {
-    @apply w-full flex items-center justify-center h-10 lg:h-11 text-center text-xs font-bold text-white bg-brand-accent rounded-btn transition-all duration-200 ease-out no-underline shadow-sm select-none border border-transparent;
+    @apply w-full flex items-center justify-center h-10 lg:h-11 text-center text-sm font-bold text-white bg-brand-accent rounded-btn transition-all duration-200 ease-out no-underline shadow-sm select-none border border-transparent;
   }
 
-  .btn-oftalmed-secondary:hover {
-    @apply bg-brand-hover text-white shadow-md !important;
+  /* Añadimos 'body' para ganarle al a:hover global de Astra sin !important */
+  body .btn-oftalmed-secondary:hover {
+    @apply bg-brand-hover text-white shadow-md;
   }
 
-  .btn-oftalmed-secondary:active {
-    @apply scale-[0.97] !important;
+  body .btn-oftalmed-secondary:active {
+    @apply scale-[0.97];
   }
 
 
@@ -44,70 +43,78 @@
      MÓDULO: CARRITO DE COMPRAS (WIDGETS Y PASOS)
      ========================================================================== */
 
-  /* BARRA DE PROGRESO */
   .cart-progress-bar .progress-dot { @apply block w-2.5 h-2.5 rounded-full bg-surface-line; }
   .cart-progress-bar .progress-step.is-active .progress-dot { @apply w-3 h-3 bg-brand-primary; }
   
-  /* ELIMINAR PILL */
   .btn-pill-remove { 
     @apply inline-flex items-center justify-center cursor-pointer text-brand-primary text-[12px] font-bold px-6 py-2 rounded-pill bg-brand-light no-underline transition-all hover:bg-brand-light/70; 
   }
 
-  /* STEPPER DE CANTIDAD */
+  /* Webkit resets sí requieren !important nativamente por cómo el navegador inyecta los estilos base */
   .custom-qty-styles input[type=number]::-webkit-inner-spin-button, 
-  .custom-qty-styles input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none !important; margin: 0 !important; }
-  .custom-qty-styles .qty-input-field { @apply flex items-center justify-center text-center !important; @apply border-0 ring-0 outline-none bg-transparent !important; line-height: 1 !important; height: 100% !important; }
-  .qty-btn { @apply select-none active:scale-90 transition-all duration-200 bg-transparent !important; @apply text-text-muted hover:text-brand-primary !important; -webkit-tap-highlight-color: transparent; outline: none !important; }
+  .custom-qty-styles input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none !important; margin: 0; }
+  
+  /* Agregamos el wrapper .woocommerce para dominar las clases internas */
+  .woocommerce .custom-qty-styles .qty-input-field { 
+    @apply flex items-center justify-center text-center border-0 ring-0 outline-none bg-transparent; 
+    line-height: 1; height: 100%; 
+  }
+  
+  .woocommerce .qty-btn { 
+    @apply select-none active:scale-90 transition-all duration-200 bg-transparent text-text-muted hover:text-brand-primary; 
+    -webkit-tap-highlight-color: transparent; outline: none; 
+  }
 
-  .cart_item .line-height-none { line-height: 1 !important; }
+  .woocommerce .cart_item .line-height-none { line-height: 1; }
 
 
   /* ==========================================================================
      MÓDULO: TOTALES Y RESUMEN DE PEDIDO (BENTO SIDEBAR)
      ========================================================================== */
-  .cart_totals .bento-box,
-  .cart_totals > div[class*="bento-box"] {
-    @apply bg-transparent lg:bg-surface-default border-none lg:border lg:border-surface-line shadow-none lg:shadow-bento p-0 lg:p-10 m-0 w-full overflow-visible !important;
+  
+  /* Envolvemos en .woocommerce para sobreescribir la tabla nativa */
+  .woocommerce .cart_totals .bento-box,
+  .woocommerce .cart_totals > div[class*="bento-box"] {
+    @apply bg-transparent lg:bg-surface-default border-none lg:border lg:border-surface-line shadow-none lg:shadow-bento p-0 lg:p-10 m-0 w-full overflow-visible;
   }
 
-  .cart_totals > h2:not(.resumen-title),
-  .cart_totals .bento-box > h2:not(.resumen-title) {
-    @apply hidden !important;
+  .woocommerce .cart_totals > h2:not(.resumen-title),
+  .woocommerce .cart_totals .bento-box > h2:not(.resumen-title) {
+    display: none;
   }
 
-  .resumen-title {
-    @apply text-xl font-bold mb-8 text-text-heading tracking-tight block !important;
+  .woocommerce .resumen-title {
+    @apply text-xl font-bold mb-8 text-text-heading tracking-tight block;
   }
 
-  .cart_totals table.shop_table {
-    @apply w-full border-none p-0 m-0 bg-transparent !important;
+  .woocommerce .cart_totals table.shop_table {
+    @apply w-full border-none p-0 m-0 bg-transparent;
   }
 
-  .cart_totals table.shop_table tr {
-    @apply flex items-center justify-between mb-4 pb-4 border-b border-surface-line last:border-none last:mb-0 last:pb-0 !important;
-    background-color: transparent !important;
+  .woocommerce .cart_totals table.shop_table tr {
+    @apply flex items-center justify-between mb-4 pb-4 border-b border-surface-line last:border-none last:mb-0 last:pb-0;
+    background-color: transparent;
   }
 
-  .cart_totals table.shop_table th {
-    @apply text-sm lg:text-base font-medium text-text-muted p-0 text-left border-none bg-transparent !important;
+  .woocommerce .cart_totals table.shop_table th {
+    @apply text-sm lg:text-base font-medium text-text-muted p-0 text-left border-none bg-transparent;
   }
 
-  .cart_totals table.shop_table td {
-    @apply text-sm lg:text-base font-bold text-text-heading p-0 text-right border-none bg-transparent !important;
+  .woocommerce .cart_totals table.shop_table td {
+    @apply text-sm lg:text-base font-bold text-text-heading p-0 text-right border-none bg-transparent;
   }
 
-  /* ALINEACIÓN CORRECTA DEL TOTAL */
-  .cart_totals table.shop_table tr.order-total {
-    @apply flex flex-row items-center justify-between mt-8 pt-8 border-t border-surface-line !important;
+  .woocommerce .cart_totals table.shop_table tr.order-total {
+    @apply flex flex-row items-center justify-between mt-8 pt-8 border-t border-surface-line;
   }
 
-  .cart_totals table.shop_table tr.order-total th { 
-    @apply text-xl font-bold text-text-heading tracking-wide !important; 
+  .woocommerce .cart_totals table.shop_table tr.order-total th { 
+    @apply text-xl font-bold text-text-heading tracking-wide; 
   }
   
-  .cart_totals table.shop_table tr.order-total td strong {
-    @apply text-3xl lg:text-4xl font-black text-text-heading tracking-tight block !important;
-    line-height: 1 !important;
+  .woocommerce .cart_totals table.shop_table tr.order-total td strong {
+    @apply text-3xl lg:text-4xl font-black text-text-heading tracking-tight block;
+    line-height: 1;
   }
 
 
@@ -115,32 +122,27 @@
      MÓDULO: BOTONES PRINCIPALES (CTAs)
      ========================================================================== */
   
-  /* Botón de Checkout Principal (Finalizar Compra) */
-  .cart_totals .wc-proceed-to-checkout {
-    @apply mt-16 ;
+  .woocommerce .cart_totals .wc-proceed-to-checkout {
+    @apply mt-16;
   }
 
-  .cart_totals .wc-proceed-to-checkout a.checkout-button {
-    @apply flex items-center justify-center w-full h-[52px] bg-brand-accent text-white text-base font-bold rounded-btn no-underline transition-all duration-300 !important;
+  .woocommerce .cart_totals .wc-proceed-to-checkout a.checkout-button {
+    @apply flex items-center justify-center w-full h-[52px] bg-brand-accent text-white text-base font-bold rounded-btn no-underline transition-all duration-300;
   }
 
-  .cart_totals .wc-proceed-to-checkout a.checkout-button:hover {
-    @apply bg-brand-hover !important;
-    transform: translateY(-2px) !important;
-    @apply shadow-btn-hover !important;
+  .woocommerce .cart_totals .wc-proceed-to-checkout a.checkout-button:hover {
+    @apply bg-brand-hover shadow-btn-hover;
+    transform: translateY(-2px);
   }
 
-  /* Botón de Continuar Comprando */
-  .btn-continue-shopping {
-    @apply flex items-center justify-center w-full h-[52px] border border-surface-ash bg-surface-default text-text-body text-sm font-bold rounded-btn no-underline transition-all duration-200 !important;
+  .woocommerce .btn-continue-shopping {
+    @apply flex items-center justify-center w-full h-[52px] border border-surface-ash bg-surface-default text-text-body text-sm font-bold rounded-btn no-underline transition-all duration-200;
   }
 
-  .btn-continue-shopping:hover {
-    @apply bg-surface-muted border-text-heading text-text-heading !important;
-    @apply shadow-sm;
+  .woocommerce .btn-continue-shopping:hover {
+    @apply bg-surface-muted border-text-heading text-text-heading shadow-sm;
   }
 
-  /* Botón Experimental de Cotización */
   #btn-fake-cotizacion:hover span {
     @apply underline decoration-1;
     text-underline-offset: 2px;
@@ -150,33 +152,40 @@
   /* ==========================================================================
      MÓDULO: TRUST SIGNALS Y ALERTAS DE SISTEMA
      ========================================================================== */
-  .trust-signals {
-    @apply mt-8 pt-8 border-t border-surface-line flex flex-col gap-4 !important;
+  .woocommerce .trust-signals {
+    @apply mt-8 pt-8 border-t border-surface-line flex flex-col gap-4;
   }
 
-  .trust-item {
-    @apply flex items-center gap-3 text-[13px] font-medium text-text-muted !important;
+  .woocommerce .trust-item {
+    @apply flex items-center gap-3 text-[13px] font-medium text-text-muted;
   }
 
-  .trust-item svg { @apply w-4 h-4 text-brand-accent !important; }
+  .woocommerce .trust-item svg { @apply w-4 h-4 text-brand-accent; }
 
   /* NOTIFICACIONES WOOCOMMERCE */
-  .woocommerce-notices-wrapper:empty { @apply hidden; }
-  .woocommerce-notices-wrapper:not(:empty) { @apply block mb-8 w-full; }
+  .woocommerce .woocommerce-notices-wrapper:empty { display: none; }
+  .woocommerce .woocommerce-notices-wrapper:not(:empty) { @apply block mb-8 w-full; }
   
-  .woocommerce-message, .woocommerce-error, .woocommerce-info {
-    @apply flex items-center justify-between p-4 mb-4 rounded-btn text-[13px] lg:text-sm font-medium shadow-sm border !important;
-    list-style: none !important;
-    margin-left: 0 !important;
+  .woocommerce .woocommerce-message, 
+  .woocommerce .woocommerce-error, 
+  .woocommerce .woocommerce-info {
+    @apply flex items-center justify-between p-4 mb-4 rounded-btn text-[13px] lg:text-sm font-medium shadow-sm border;
+    list-style: none;
+    margin-left: 0;
   }
 
-  .woocommerce-message { @apply bg-ui-success-bg text-ui-success-text border-ui-success-border !important; }
-  .woocommerce-error { @apply bg-ui-error-bg text-ui-error-text border-ui-error-border !important; }
-  .woocommerce-info { @apply bg-ui-info-bg text-brand-primary border-ui-info-border !important; }
+  .woocommerce .woocommerce-message { @apply bg-ui-success-bg text-ui-success-text border-ui-success-border; }
+  .woocommerce .woocommerce-error { @apply bg-ui-error-bg text-ui-error-text border-ui-error-border; }
+  .woocommerce .woocommerce-info { @apply bg-ui-info-bg text-brand-primary border-ui-info-border; }
 
-  .woocommerce-message a.button, .woocommerce-info a.button {
-    @apply px-4 py-2 bg-surface-default text-text-body text-[11px] font-bold rounded-input border border-surface-line hover:bg-surface-muted transition-colors no-underline ml-4 !important;
+  .woocommerce .woocommerce-message a.button, 
+  .woocommerce .woocommerce-info a.button {
+    @apply px-4 py-2 bg-surface-default text-text-body text-[11px] font-bold rounded-input border border-surface-line hover:bg-surface-muted transition-colors no-underline ml-4;
   }
   
-  .woocommerce-message::before, .woocommerce-error::before, .woocommerce-info::before { content: none !important; }
+  .woocommerce .woocommerce-message::before, 
+  .woocommerce .woocommerce-error::before, 
+  .woocommerce .woocommerce-info::before { 
+    content: none; 
+  }
 }

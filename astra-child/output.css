@@ -566,8 +566,6 @@ html {
      COMPONENTES INTERACTIVOS GLOBALES (SISTEMA DE DISEÑO OFTALMED)
      ========================================================================== */
 
-/* Tarjeta Bento Global con sombra tenue inicial y animación de Zoom */
-
 .oftalmed-card {
   display: flex;
   flex-direction: column;
@@ -592,24 +590,20 @@ html {
 }
 
 .oftalmed-card {
-  --tw-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  --tw-shadow-colored: 0 20px 40px var(--tw-shadow-color);
+  --tw-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  --tw-shadow-colored: 0 5px 15px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  /* USANDO EL NUEVO TOKEN CONFIGURADO */
   will-change: transform, box-shadow;
 }
 
 .oftalmed-card:hover {
   --tw-border-opacity: 1;
   border-color: rgb(249 250 251 / var(--tw-border-opacity, 1));
-  --tw-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-  --tw-shadow-colored: 0 25px 50px var(--tw-shadow-color);
+  --tw-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  --tw-shadow-colored: 0 10px 25px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  /* USANDO EL NUEVO TOKEN DE HOVER */
   transform: translateY(-4px) scale(1.015);
 }
-
-/* Botón Secundario Global (Sólido - Brand Accent) */
 
 .btn-oftalmed-secondary {
   display: flex;
@@ -626,8 +620,8 @@ html {
   --tw-bg-opacity: 1;
   background-color: rgb(1 157 251 / var(--tw-bg-opacity, 1));
   text-align: center;
-  font-size: 0.75rem;
-  line-height: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -647,29 +641,27 @@ html {
   }
 }
 
-.btn-oftalmed-secondary:hover {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(34 172 255 / var(--tw-bg-opacity, 1)) !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
-  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
-  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color) !important;
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+/* Añadimos 'body' para ganarle al a:hover global de Astra sin !important */
+
+body .btn-oftalmed-secondary:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 172 255 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.btn-oftalmed-secondary:active {
-  --tw-scale-x: 0.97 !important;
-  --tw-scale-y: 0.97 !important;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+body .btn-oftalmed-secondary:active {
+  --tw-scale-x: 0.97;
+  --tw-scale-y: 0.97;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 /* ==========================================================================
      MÓDULO: CARRITO DE COMPRAS (WIDGETS Y PASOS)
      ========================================================================== */
-
-/* BARRA DE PROGRESO */
-
-/* ELIMINAR PILL */
 
 .btn-pill-remove {
   display: inline-flex;
@@ -697,301 +689,294 @@ html {
   background-color: rgb(230 245 255 / 0.7);
 }
 
-/* STEPPER DE CANTIDAD */
+/* Webkit resets sí requieren !important nativamente por cómo el navegador inyecta los estilos base */
 
 .custom-qty-styles input[type=number]::-webkit-inner-spin-button, 
   .custom-qty-styles input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none !important;
-  margin: 0 !important;
+  margin: 0;
 }
 
-.custom-qty-styles .qty-input-field {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  border-width: 0px !important;
-  background-color: transparent !important;
-  outline: 2px solid transparent !important;
-  outline-offset: 2px !important;
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color) !important;
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color) !important;
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000) !important;
-  line-height: 1 !important;
-  height: 100% !important;
+/* Agregamos el wrapper .woocommerce para dominar las clases internas */
+
+.woocommerce .custom-qty-styles .qty-input-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 0px;
+  background-color: transparent;
+  text-align: center;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  line-height: 1;
+  height: 100%;
 }
 
-.qty-btn {
-  -webkit-user-select: none !important;
-     -moz-user-select: none !important;
-          user-select: none !important;
-  background-color: transparent !important;
-  transition-property: all !important;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-  transition-duration: 200ms !important;
+.woocommerce .qty-btn {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  background-color: transparent;
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 
-.qty-btn:active {
-  --tw-scale-x: .9 !important;
-  --tw-scale-y: .9 !important;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+.woocommerce .qty-btn:hover {
+  --tw-text-opacity: 1;
+  color: rgb(20 91 196 / var(--tw-text-opacity, 1));
 }
 
-.qty-btn {
-  --tw-text-opacity: 1 !important;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1)) !important;
+.woocommerce .qty-btn:active {
+  --tw-scale-x: .9;
+  --tw-scale-y: .9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.qty-btn:hover {
-  --tw-text-opacity: 1 !important;
-  color: rgb(20 91 196 / var(--tw-text-opacity, 1)) !important;
-}
-
-.qty-btn {
+.woocommerce .qty-btn {
   -webkit-tap-highlight-color: transparent;
-  outline: none !important;
+  outline: none;
 }
 
-.cart_item .line-height-none {
-  line-height: 1 !important;
+.woocommerce .cart_item .line-height-none {
+  line-height: 1;
 }
 
 /* ==========================================================================
      MÓDULO: TOTALES Y RESUMEN DE PEDIDO (BENTO SIDEBAR)
      ========================================================================== */
 
-.cart_totals .bento-box,
-  .cart_totals > div[class*="bento-box"] {
-  margin: 0px !important;
-  width: 100% !important;
-  overflow: visible !important;
-  border-style: none !important;
-  background-color: transparent !important;
-  padding: 0px !important;
-  --tw-shadow: 0 0 #0000 !important;
-  --tw-shadow-colored: 0 0 #0000 !important;
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+/* Envolvemos en .woocommerce para sobreescribir la tabla nativa */
+
+.woocommerce .cart_totals .bento-box,
+  .woocommerce .cart_totals > div[class*="bento-box"] {
+  margin: 0px;
+  width: 100%;
+  overflow: visible;
+  border-style: none;
+  background-color: transparent;
+  padding: 0px;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 @media (min-width: 1024px) {
-  .cart_totals .bento-box,
-  .cart_totals > div[class*="bento-box"] {
-    border-width: 1px !important;
-    --tw-border-opacity: 1 !important;
-    border-color: rgb(243 244 246 / var(--tw-border-opacity, 1)) !important;
-    --tw-bg-opacity: 1 !important;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)) !important;
-    padding: 2.5rem !important;
-    --tw-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
-    --tw-shadow-colored: 0 20px 40px var(--tw-shadow-color) !important;
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+  .woocommerce .cart_totals .bento-box,
+  .woocommerce .cart_totals > div[class*="bento-box"] {
+    border-width: 1px;
+    --tw-border-opacity: 1;
+    border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+    padding: 2.5rem;
+    --tw-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+    --tw-shadow-colored: 0 5px 15px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
 }
 
-.cart_totals > h2:not(.resumen-title),
-  .cart_totals .bento-box > h2:not(.resumen-title) {
-  display: none !important;
+.woocommerce .cart_totals > h2:not(.resumen-title),
+  .woocommerce .cart_totals .bento-box > h2:not(.resumen-title) {
+  display: none;
 }
 
-.resumen-title {
-  margin-bottom: 2rem !important;
-  display: block !important;
-  font-size: 1.25rem !important;
-  line-height: 1.75rem !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.025em !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1)) !important;
+.woocommerce .resumen-title {
+  margin-bottom: 2rem;
+  display: block;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
 }
 
-.cart_totals table.shop_table {
-  margin: 0px !important;
-  width: 100% !important;
-  border-style: none !important;
-  background-color: transparent !important;
-  padding: 0px !important;
+.woocommerce .cart_totals table.shop_table {
+  margin: 0px;
+  width: 100%;
+  border-style: none;
+  background-color: transparent;
+  padding: 0px;
 }
 
-.cart_totals table.shop_table tr {
-  margin-bottom: 1rem !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  border-bottom-width: 1px !important;
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1)) !important;
-  padding-bottom: 1rem !important;
+.woocommerce .cart_totals table.shop_table tr {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
+  padding-bottom: 1rem;
 }
 
-.cart_totals table.shop_table tr:last-child {
-  margin-bottom: 0px !important;
-  border-style: none !important;
-  padding-bottom: 0px !important;
+.woocommerce .cart_totals table.shop_table tr:last-child {
+  margin-bottom: 0px;
+  border-style: none;
+  padding-bottom: 0px;
 }
 
-.cart_totals table.shop_table tr {
-  background-color: transparent !important;
+.woocommerce .cart_totals table.shop_table tr {
+  background-color: transparent;
 }
 
-.cart_totals table.shop_table th {
-  border-style: none !important;
-  background-color: transparent !important;
-  padding: 0px !important;
-  text-align: left !important;
-  font-size: 0.875rem !important;
-  line-height: 1.25rem !important;
-  font-weight: 500 !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1)) !important;
+.woocommerce .cart_totals table.shop_table th {
+  border-style: none;
+  background-color: transparent;
+  padding: 0px;
+  text-align: left;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
 }
 
 @media (min-width: 1024px) {
-  .cart_totals table.shop_table th {
-    font-size: 1rem !important;
-    line-height: 1.5rem !important;
+  .woocommerce .cart_totals table.shop_table th {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }
 
-.cart_totals table.shop_table td {
-  border-style: none !important;
-  background-color: transparent !important;
-  padding: 0px !important;
-  text-align: right !important;
-  font-size: 0.875rem !important;
-  line-height: 1.25rem !important;
-  font-weight: 700 !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1)) !important;
+.woocommerce .cart_totals table.shop_table td {
+  border-style: none;
+  background-color: transparent;
+  padding: 0px;
+  text-align: right;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
 }
 
 @media (min-width: 1024px) {
-  .cart_totals table.shop_table td {
-    font-size: 1rem !important;
-    line-height: 1.5rem !important;
+  .woocommerce .cart_totals table.shop_table td {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }
 
-/* ALINEACIÓN CORRECTA DEL TOTAL */
-
-.cart_totals table.shop_table tr.order-total {
-  margin-top: 2rem !important;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  border-top-width: 1px !important;
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1)) !important;
-  padding-top: 2rem !important;
+.woocommerce .cart_totals table.shop_table tr.order-total {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-top-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
+  padding-top: 2rem;
 }
 
-.cart_totals table.shop_table tr.order-total th {
-  font-size: 1.25rem !important;
-  line-height: 1.75rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.025em !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1)) !important;
+.woocommerce .cart_totals table.shop_table tr.order-total th {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
 }
 
-.cart_totals table.shop_table tr.order-total td strong {
-  display: block !important;
-  font-size: 1.875rem !important;
-  line-height: 2.25rem !important;
-  font-weight: 900 !important;
-  letter-spacing: -0.025em !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1)) !important;
+.woocommerce .cart_totals table.shop_table tr.order-total td strong {
+  display: block;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
 }
 
 @media (min-width: 1024px) {
-  .cart_totals table.shop_table tr.order-total td strong {
-    font-size: 2.25rem !important;
-    line-height: 2.5rem !important;
+  .woocommerce .cart_totals table.shop_table tr.order-total td strong {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 }
 
-.cart_totals table.shop_table tr.order-total td strong {
-  line-height: 1 !important;
+.woocommerce .cart_totals table.shop_table tr.order-total td strong {
+  line-height: 1;
 }
 
 /* ==========================================================================
      MÓDULO: BOTONES PRINCIPALES (CTAs)
      ========================================================================== */
 
-/* Botón de Checkout Principal (Finalizar Compra) */
-
-.cart_totals .wc-proceed-to-checkout {
+.woocommerce .cart_totals .wc-proceed-to-checkout {
   margin-top: 4rem;
 }
 
-.cart_totals .wc-proceed-to-checkout a.checkout-button {
-  display: flex !important;
-  height: 52px !important;
-  width: 100% !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border-radius: 0.75rem !important;
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(1 157 251 / var(--tw-bg-opacity, 1)) !important;
-  font-size: 1rem !important;
-  line-height: 1.5rem !important;
-  font-weight: 700 !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
-  text-decoration-line: none !important;
-  transition-property: all !important;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-  transition-duration: 300ms !important;
+.woocommerce .cart_totals .wc-proceed-to-checkout a.checkout-button {
+  display: flex;
+  height: 52px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 157 251 / var(--tw-bg-opacity, 1));
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  text-decoration-line: none;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
 }
 
-.cart_totals .wc-proceed-to-checkout a.checkout-button:hover {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(34 172 255 / var(--tw-bg-opacity, 1)) !important;
-  transform: translateY(-2px) !important;
-  --tw-shadow: 0 8px 20px rgba(1, 157, 251, 0.2) !important;
-  --tw-shadow-colored: 0 8px 20px var(--tw-shadow-color) !important;
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+.woocommerce .cart_totals .wc-proceed-to-checkout a.checkout-button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 172 255 / var(--tw-bg-opacity, 1));
+  --tw-shadow: 0 8px 20px rgba(1, 157, 251, 0.2);
+  --tw-shadow-colored: 0 8px 20px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  transform: translateY(-2px);
 }
 
-/* Botón de Continuar Comprando */
-
-.btn-continue-shopping {
-  display: flex !important;
-  height: 52px !important;
-  width: 100% !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border-radius: 0.75rem !important;
-  border-width: 1px !important;
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1)) !important;
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)) !important;
-  font-size: 0.875rem !important;
-  line-height: 1.25rem !important;
-  font-weight: 700 !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(55 65 81 / var(--tw-text-opacity, 1)) !important;
-  text-decoration-line: none !important;
-  transition-property: all !important;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-  transition-duration: 200ms !important;
+.woocommerce .btn-continue-shopping {
+  display: flex;
+  height: 52px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+  text-decoration-line: none;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 
-.btn-continue-shopping:hover {
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(17 24 39 / var(--tw-border-opacity, 1)) !important;
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1)) !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1)) !important;
+.woocommerce .btn-continue-shopping:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(17 24 39 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
-
-/* Botón Experimental de Cotización */
 
 #btn-fake-cotizacion:hover span {
   text-decoration-line: underline;
@@ -1003,71 +988,139 @@ html {
      MÓDULO: TRUST SIGNALS Y ALERTAS DE SISTEMA
      ========================================================================== */
 
-.trust-signals {
-  margin-top: 2rem !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 1rem !important;
-  border-top-width: 1px !important;
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1)) !important;
-  padding-top: 2rem !important;
+.woocommerce .trust-signals {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-top-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
+  padding-top: 2rem;
 }
 
-.trust-item {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.75rem !important;
-  font-size: 13px !important;
-  font-weight: 500 !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1)) !important;
+.woocommerce .trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 13px;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
 }
 
-.trust-item svg {
-  height: 1rem !important;
-  width: 1rem !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(1 157 251 / var(--tw-text-opacity, 1)) !important;
+.woocommerce .trust-item svg {
+  height: 1rem;
+  width: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(1 157 251 / var(--tw-text-opacity, 1));
 }
 
 /* NOTIFICACIONES WOOCOMMERCE */
 
-.woocommerce-notices-wrapper:empty {
+.woocommerce .woocommerce-notices-wrapper:empty {
   display: none;
 }
 
-.woocommerce-notices-wrapper:not(:empty) {
+.woocommerce .woocommerce-notices-wrapper:not(:empty) {
   margin-bottom: 2rem;
   display: block;
   width: 100%;
 }
 
-.woocommerce-message a.button, .woocommerce-info a.button {
-  margin-left: 1rem !important;
-  border-radius: 0.5rem !important;
-  border-width: 1px !important;
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1)) !important;
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)) !important;
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
-  padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  --tw-text-opacity: 1 !important;
-  color: rgb(55 65 81 / var(--tw-text-opacity, 1)) !important;
-  text-decoration-line: none !important;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke !important;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-  transition-duration: 150ms !important;
+.woocommerce .woocommerce-message, 
+  .woocommerce .woocommerce-error, 
+  .woocommerce .woocommerce-info {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0.75rem;
+  border-width: 1px;
+  padding: 1rem;
+  font-size: 13px;
+  font-weight: 500;
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.woocommerce-message a.button:hover, .woocommerce-info a.button:hover {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1)) !important;
+@media (min-width: 1024px) {
+  .woocommerce .woocommerce-message, 
+  .woocommerce .woocommerce-error, 
+  .woocommerce .woocommerce-info {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+.woocommerce .woocommerce-message, 
+  .woocommerce .woocommerce-error, 
+  .woocommerce .woocommerce-info {
+  list-style: none;
+  margin-left: 0;
+}
+
+.woocommerce .woocommerce-message {
+  --tw-border-opacity: 1;
+  border-color: rgb(187 247 208 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(22 101 52 / var(--tw-text-opacity, 1));
+}
+
+.woocommerce .woocommerce-error {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity, 1));
+}
+
+.woocommerce .woocommerce-info {
+  --tw-border-opacity: 1;
+  border-color: rgb(191 219 254 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(20 91 196 / var(--tw-text-opacity, 1));
+}
+
+.woocommerce .woocommerce-message a.button, 
+  .woocommerce .woocommerce-info a.button {
+  margin-left: 1rem;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+  text-decoration-line: none;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.woocommerce .woocommerce-message a.button:hover, 
+  .woocommerce .woocommerce-info a.button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+.woocommerce .woocommerce-message::before, 
+  .woocommerce .woocommerce-error::before, 
+  .woocommerce .woocommerce-info::before {
+  content: none;
 }
 
 .pointer-events-none {
@@ -1844,13 +1897,13 @@ html {
 }
 
 .shadow-bento {
-  --tw-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  --tw-shadow-colored: 0 20px 40px var(--tw-shadow-color);
+  --tw-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  --tw-shadow-colored: 0 5px 15px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .shadow-btn {
-  --tw-shadow: 0 4px 10px rgba(1, 157, 251, 0.1);
+  --tw-shadow: 0 4px 10px rgba(1, 157, 251, 0.15);
   --tw-shadow-colored: 0 4px 10px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
@@ -2182,8 +2235,8 @@ html {
   }
 
   .lg\:shadow-bento {
-    --tw-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    --tw-shadow-colored: 0 20px 40px var(--tw-shadow-color);
+    --tw-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+    --tw-shadow-colored: 0 5px 15px var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
 }

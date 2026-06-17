@@ -51,9 +51,9 @@ module.exports = {
         }
       },
       boxShadow: {
-        'bento': '0 20px 40px rgba(0, 0, 0, 0.1)',         
-        'bento-hover': '0 25px 50px rgba(0, 0, 0, 0.15)',  
-        'btn': '0 4px 10px rgba(1, 157, 251, 0.1)',        
+        'bento': '0 5px 15px rgba(0, 0, 0, 0.12)',         
+        'bento-hover': '0 10px 25px rgba(0, 0, 0, 0.2)',  
+        'btn': '0 4px 10px rgba(1, 157, 251, 0.15)',        
         'btn-hover': '0 8px 20px rgba(1, 157, 251, 0.2)',  
       },
       borderRadius: {
