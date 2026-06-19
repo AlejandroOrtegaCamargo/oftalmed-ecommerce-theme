@@ -566,6 +566,32 @@ html {
      COMPONENTES INTERACTIVOS GLOBALES (SISTEMA DE DISEÑO OFTALMED)
      ========================================================================== */
 
+/* Contenedor universal Bento - SIN HOVER */
+
+.woocommerce .bento-box {
+  margin: 0px !important;
+  width: 100% !important;
+  background-color: transparent !important;
+  padding: 1.5rem !important;
+}
+
+@media (min-width: 1024px) {
+  .woocommerce .bento-box {
+    border-radius: 1.5rem !important;
+    border-width: 1px !important;
+    --tw-border-opacity: 1 !important;
+    border-color: rgb(243 244 246 / var(--tw-border-opacity, 1)) !important;
+    --tw-bg-opacity: 1 !important;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)) !important;
+    padding: 2.5rem !important;
+    --tw-shadow: 0 5px 15px rgba(0, 0, 0, 0.12) !important;
+    --tw-shadow-colored: 0 5px 15px var(--tw-shadow-color) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+  }
+}
+
+/* Tarjeta con efecto hover (usar solo en elementos interactivos) */
+
 .oftalmed-card {
   display: flex;
   flex-direction: column;
@@ -577,6 +603,9 @@ html {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
   padding: 1.25rem;
+  --tw-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  --tw-shadow-colored: 0 5px 15px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
@@ -590,9 +619,6 @@ html {
 }
 
 .oftalmed-card {
-  --tw-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-  --tw-shadow-colored: 0 5px 15px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   will-change: transform, box-shadow;
 }
 
@@ -641,8 +667,6 @@ html {
   }
 }
 
-/* Añadimos 'body' para ganarle al a:hover global de Astra sin !important */
-
 body .btn-oftalmed-secondary:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(34 172 255 / var(--tw-bg-opacity, 1));
@@ -689,15 +713,11 @@ body .btn-oftalmed-secondary:active {
   background-color: rgb(230 245 255 / 0.7);
 }
 
-/* Webkit resets sí requieren !important nativamente por cómo el navegador inyecta los estilos base */
-
 .custom-qty-styles input[type=number]::-webkit-inner-spin-button, 
   .custom-qty-styles input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none !important;
   margin: 0;
 }
-
-/* Agregamos el wrapper .woocommerce para dominar las clases internas */
 
 .woocommerce .custom-qty-styles .qty-input-field {
   display: flex;
@@ -748,45 +768,12 @@ body .btn-oftalmed-secondary:active {
 }
 
 /* ==========================================================================
-     MÓDULO: TOTALES Y RESUMEN DE PEDIDO (BENTO SIDEBAR)
+     MÓDULO: TOTALES Y RESUMEN DE PEDIDO (CARRITO)
      ========================================================================== */
 
-/* Envolvemos en .woocommerce para sobreescribir la tabla nativa */
+/* Se aplica a .bento-box sea donde sea que esté */
 
-.woocommerce .cart_totals .bento-box,
-  .woocommerce .cart_totals > div[class*="bento-box"] {
-  margin: 0px;
-  width: 100%;
-  overflow: visible;
-  border-style: none;
-  background-color: transparent;
-  padding: 0px;
-  --tw-shadow: 0 0 #0000;
-  --tw-shadow-colored: 0 0 #0000;
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-@media (min-width: 1024px) {
-  .woocommerce .cart_totals .bento-box,
-  .woocommerce .cart_totals > div[class*="bento-box"] {
-    border-width: 1px;
-    --tw-border-opacity: 1;
-    border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
-    --tw-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-    padding: 2.5rem;
-    --tw-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-    --tw-shadow-colored: 0 5px 15px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  }
-}
-
-.woocommerce .cart_totals > h2:not(.resumen-title),
-  .woocommerce .cart_totals .bento-box > h2:not(.resumen-title) {
-  display: none;
-}
-
-.woocommerce .resumen-title {
+.woocommerce .bento-box .resumen-title {
   margin-bottom: 2rem;
   display: block;
   font-size: 1.25rem;
@@ -813,6 +800,7 @@ body .btn-oftalmed-secondary:active {
   border-bottom-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
+  background-color: transparent;
   padding-bottom: 1rem;
 }
 
@@ -820,10 +808,6 @@ body .btn-oftalmed-secondary:active {
   margin-bottom: 0px;
   border-style: none;
   padding-bottom: 0px;
-}
-
-.woocommerce .cart_totals table.shop_table tr {
-  background-color: transparent;
 }
 
 .woocommerce .cart_totals table.shop_table th {
@@ -864,57 +848,17 @@ body .btn-oftalmed-secondary:active {
   }
 }
 
-.woocommerce .cart_totals table.shop_table tr.order-total {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  border-top-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
-  padding-top: 2rem;
-}
-
-.woocommerce .cart_totals table.shop_table tr.order-total th {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  font-weight: 700;
-  letter-spacing: 0.025em;
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
-}
-
-.woocommerce .cart_totals table.shop_table tr.order-total td strong {
-  display: block;
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  font-weight: 900;
-  letter-spacing: -0.025em;
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
-}
-
-@media (min-width: 1024px) {
-  .woocommerce .cart_totals table.shop_table tr.order-total td strong {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-}
-
-.woocommerce .cart_totals table.shop_table tr.order-total td strong {
-  line-height: 1;
-}
-
 /* ==========================================================================
      MÓDULO: BOTONES PRINCIPALES (CTAs)
      ========================================================================== */
 
-.woocommerce .cart_totals .wc-proceed-to-checkout {
-  margin-top: 4rem;
+.woocommerce .wc-proceed-to-checkout,
+  .woocommerce #payment {
+  margin-top: 2rem;
 }
 
-.woocommerce .cart_totals .wc-proceed-to-checkout a.checkout-button {
+.woocommerce .wc-proceed-to-checkout a.checkout-button,
+  .woocommerce #payment #place_order {
   display: flex;
   height: 52px;
   width: 100%;
@@ -934,7 +878,8 @@ body .btn-oftalmed-secondary:active {
   transition-duration: 300ms;
 }
 
-.woocommerce .cart_totals .wc-proceed-to-checkout a.checkout-button:hover {
+.woocommerce .wc-proceed-to-checkout a.checkout-button:hover,
+  .woocommerce #payment #place_order:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(34 172 255 / var(--tw-bg-opacity, 1));
   --tw-shadow: 0 8px 20px rgba(1, 157, 251, 0.2);
@@ -966,61 +911,18 @@ body .btn-oftalmed-secondary:active {
   transition-duration: 200ms;
 }
 
-.woocommerce .btn-continue-shopping:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(17 24 39 / var(--tw-border-opacity, 1));
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
-  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-#btn-fake-cotizacion:hover span {
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-}
-
 /* ==========================================================================
-     MÓDULO: TRUST SIGNALS Y ALERTAS DE SISTEMA
+     MÓDULO: WOOCOMMERCE UI GLOBAL Y FIXES DE CHECKOUT
      ========================================================================== */
 
-.woocommerce .trust-signals {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  border-top-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
-  padding-top: 2rem;
+/* Ocultar títulos nativos Astra en checkout */
+
+body.woocommerce-checkout header.entry-header,
+  body.woocommerce-checkout h1.entry-title {
+  display: none !important;
 }
 
-.woocommerce .trust-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 13px;
-  font-weight: 500;
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
-}
-
-.woocommerce .trust-item svg {
-  height: 1rem;
-  width: 1rem;
-  --tw-text-opacity: 1;
-  color: rgb(1 157 251 / var(--tw-text-opacity, 1));
-}
-
-/* NOTIFICACIONES WOOCOMMERCE */
-
-.woocommerce .woocommerce-notices-wrapper:empty {
-  display: none;
-}
+/* NOTIFICACIONES */
 
 .woocommerce .woocommerce-notices-wrapper:not(:empty) {
   margin-bottom: 2rem;
@@ -1028,9 +930,7 @@ body .btn-oftalmed-secondary:active {
   width: 100%;
 }
 
-.woocommerce .woocommerce-message, 
-  .woocommerce .woocommerce-error, 
-  .woocommerce .woocommerce-info {
+.woocommerce .woocommerce-message, .woocommerce .woocommerce-error, .woocommerce .woocommerce-info {
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -1046,17 +946,13 @@ body .btn-oftalmed-secondary:active {
 }
 
 @media (min-width: 1024px) {
-  .woocommerce .woocommerce-message, 
-  .woocommerce .woocommerce-error, 
-  .woocommerce .woocommerce-info {
+  .woocommerce .woocommerce-message, .woocommerce .woocommerce-error, .woocommerce .woocommerce-info {
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
 }
 
-.woocommerce .woocommerce-message, 
-  .woocommerce .woocommerce-error, 
-  .woocommerce .woocommerce-info {
+.woocommerce .woocommerce-message, .woocommerce .woocommerce-error, .woocommerce .woocommerce-info {
   list-style: none;
   margin-left: 0;
 }
@@ -1088,9 +984,39 @@ body .btn-oftalmed-secondary:active {
   color: rgb(20 91 196 / var(--tw-text-opacity, 1));
 }
 
-.woocommerce .woocommerce-message a.button, 
-  .woocommerce .woocommerce-info a.button {
-  margin-left: 1rem;
+.woocommerce .woocommerce-message::before, .woocommerce .woocommerce-error::before, .woocommerce .woocommerce-info::before {
+  content: none;
+}
+
+/* ==========================================================================
+     MÓDULO: PURIFICACIÓN DE INPUTS Y FORMULARIOS (CHECKOUT PREMIUM)
+     ========================================================================== */
+
+.woocommerce-checkout .form-row {
+  margin-bottom: 1.25rem;
+}
+
+.woocommerce-checkout label {
+  margin-bottom: 0.5rem;
+  margin-left: 0.25rem;
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+/* Estilo base para todos los inputs y selects */
+
+.woocommerce-checkout input[type="text"],
+  .woocommerce-checkout input[type="email"],
+  .woocommerce-checkout input[type="tel"],
+  .woocommerce-checkout input[type="password"],
+  .woocommerce-checkout select,
+  .woocommerce-checkout textarea {
+  height: 48px;
+  width: 100%;
   border-radius: 0.5rem;
   border-width: 1px;
   --tw-border-opacity: 1;
@@ -1099,28 +1025,278 @@ body .btn-oftalmed-secondary:active {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  font-size: 11px;
+  font-size: 14px;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.woocommerce-checkout input[type="text"]::-moz-placeholder, .woocommerce-checkout input[type="email"]::-moz-placeholder, .woocommerce-checkout input[type="tel"]::-moz-placeholder, .woocommerce-checkout input[type="password"]::-moz-placeholder, .woocommerce-checkout select::-moz-placeholder, .woocommerce-checkout textarea::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+
+.woocommerce-checkout input[type="text"]::placeholder,
+  .woocommerce-checkout input[type="email"]::placeholder,
+  .woocommerce-checkout input[type="tel"]::placeholder,
+  .woocommerce-checkout input[type="password"]::placeholder,
+  .woocommerce-checkout select::placeholder,
+  .woocommerce-checkout textarea::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+
+/* Efecto Focus Elegante */
+
+.woocommerce-checkout input:focus,
+  .woocommerce-checkout select:focus,
+  .woocommerce-checkout textarea:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(20 91 196 / var(--tw-border-opacity, 1));
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-color: rgb(20 91 196 / 0.2);
+}
+
+/* Etiquetas obligatorias (el asterisco rojo) */
+
+.woocommerce-checkout .required {
+  margin-left: 0.25rem;
   font-weight: 700;
   --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+  color: rgb(1 157 251 / var(--tw-text-opacity, 1));
   text-decoration-line: none;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
 }
 
-.woocommerce .woocommerce-message a.button:hover, 
-  .woocommerce .woocommerce-info a.button:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+/* Estilo de los Selects (Menús desplegables) */
+
+.woocommerce-checkout select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23666'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-position: right 1rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding-right: 2.5rem;
 }
 
-.woocommerce .woocommerce-message::before, 
-  .woocommerce .woocommerce-error::before, 
-  .woocommerce .woocommerce-info::before {
-  content: none;
+/* ==========================================================================
+     MÓDULO: AVISO DE CUPÓN (DESACTIVADO - OCULTO EN CHECKOUT)
+     ========================================================================== 
+  
+  .woocommerce-form-coupon-toggle .woocommerce-info {
+    @apply flex items-center justify-center p-4 bg-surface-default border border-surface-line rounded-bento text-sm font-medium shadow-sm transition-all;
+  }
+
+  .woocommerce form.checkout_coupon {
+    @apply p-6 bg-surface-default border border-surface-line rounded-bento shadow-bento mt-2 !important;
+  }
+
+  .woocommerce form.checkout_coupon input[type="text"] {
+    @apply h-[48px] border border-surface-line rounded-input !important;
+  }
+
+  .woocommerce form.checkout_coupon button {
+    @apply bg-brand-primary text-white font-bold px-6 rounded-btn !important;
+  }
+  */
+
+/* Ocultar aviso de cupón */
+
+.woocommerce-form-coupon-toggle,
+.woocommerce-checkout .custom-checkout-coupon {
+  display: none !important;
+}
+
+/* ==========================================================================
+     FIX: TABLA DE RESUMEN DE PEDIDO EN CHECKOUT
+     ========================================================================== */
+
+/* Obligamos a la tabla a comportarse como tabla y ocupar el 100% */
+
+.woocommerce-checkout-review-order table.shop_table {
+  display: table !important;
+  margin-top: 1.5rem;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Devolvemos el display nativo a filas y celdas */
+
+.woocommerce-checkout-review-order table.shop_table tr {
+  display: table-row !important;
+}
+
+.woocommerce-checkout-review-order table.shop_table th,
+  .woocommerce-checkout-review-order table.shop_table td {
+  display: table-cell !important;
+  border-bottom-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  vertical-align: middle;
+}
+
+/* Encabezados de la tabla (Producto / Subtotal) */
+
+.woocommerce-checkout-review-order table.shop_table thead th {
+  border-bottom-width: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+
+/* Nombres de los productos */
+
+.woocommerce-checkout-review-order table.shop_table tbody td.product-name {
+  padding-right: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+/* Precios y Subtotales (Alineados a la derecha) */
+
+.woocommerce-checkout-review-order table.shop_table .product-total,
+  .woocommerce-checkout-review-order table.shop_table tfoot td {
+  text-align: right;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+.woocommerce-checkout-review-order table.shop_table tfoot th {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+
+/* Fila final del TOTAL */
+
+.woocommerce-checkout-review-order table.shop_table tr.order-total th {
+  border-style: none;
+  padding-top: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+.woocommerce-checkout-review-order table.shop_table tr.order-total td strong {
+  display: block;
+  border-style: none;
+  padding-top: 1.5rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+@media (min-width: 1024px) {
+  .woocommerce-checkout-review-order table.shop_table tr.order-total td strong {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+
+/* ==========================================================================
+    FIX 2: NEUTRALIZAR EL GRID NATIVO DE ASTRA (CSS GRID + TABLA LIMPIA)
+    ========================================================================== */
+
+/* Dejamos que Tailwind y CSS Grid controlen los anchos al 100% */
+
+.woocommerce-checkout #customer_details,
+  .woocommerce-checkout #order_review_heading,
+  .woocommerce-checkout #order_review {
+  float: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+/* ==========================================================================
+    OPCIÓN NUCLEAR: DESTRUIR BORDES DE ASTRA EN LA TABLA
+    ========================================================================== */
+
+/* 1. Matar absolutamente cualquier borde, sombra o contorno en el contenedor y la tabla */
+
+.woocommerce-checkout #order_review,
+  .woocommerce-checkout-review-order table.shop_table,
+  .woocommerce-checkout-review-order table.shop_table thead,
+  .woocommerce-checkout-review-order table.shop_table tbody,
+  .woocommerce-checkout-review-order table.shop_table tfoot,
+  .woocommerce-checkout-review-order table.shop_table tr,
+  .woocommerce-checkout-review-order table.shop_table th,
+  .woocommerce-checkout-review-order table.shop_table td {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+/* 2. Re-dibujar SOLAMENTE la línea sutil inferior en las celdas (usando tu color surface-line) */
+
+.woocommerce-checkout-review-order table.shop_table th,
+  .woocommerce-checkout-review-order table.shop_table td {
+  border-bottom-width: 1px !important;
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1)) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* 3. Quitar la línea inferior a la fila final (Total) para que respire */
+
+.woocommerce-checkout-review-order table.shop_table tr.order-total th,
+  .woocommerce-checkout-review-order table.shop_table tr.order-total td,
+  .woocommerce-checkout-review-order table.shop_table tfoot tr:last-child th,
+  .woocommerce-checkout-review-order table.shop_table tfoot tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Ajuste de anchos para que el texto no se apachurre */
+
+.woocommerce-checkout-review-order table.shop_table th.product-name,
+  .woocommerce-checkout-review-order table.shop_table td.product-name {
+  width: 65% !important;
+}
+
+.woocommerce-checkout-review-order table.shop_table th.product-total,
+  .woocommerce-checkout-review-order table.shop_table td.product-total {
+  width: 35% !important;
+}
+
+/* ==========================================================================
+    FIX 3: BORDES DE TÍTULO Y SCROLLBAR PREMIUM PARA CHECKOUT STICKY
+    ========================================================================== */
+
+/* Destruir el borde nativo de Astra en el título "Tu pedido" */
+
+.woocommerce-checkout #order_review_heading {
+  border: none !important;
+  background: transparent !important;
 }
 
 .pointer-events-none {
@@ -1455,6 +1631,10 @@ body .btn-oftalmed-secondary:active {
           user-select: none;
 }
 
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -1513,6 +1693,10 @@ body .btn-oftalmed-secondary:active {
 
 .gap-5 {
   gap: 1.25rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
 }
 
 .gap-8 {
@@ -1649,6 +1833,10 @@ body .btn-oftalmed-secondary:active {
   padding: 1rem;
 }
 
+.p-6 {
+  padding: 1.5rem;
+}
+
 .p-8 {
   padding: 2rem;
 }
@@ -1702,6 +1890,10 @@ body .btn-oftalmed-secondary:active {
 
 .pr-2 {
   padding-right: 0.5rem;
+}
+
+.pt-0 {
+  padding-top: 0px;
 }
 
 .pt-2 {
@@ -2111,6 +2303,14 @@ body .btn-oftalmed-secondary:active {
 }
 
 @media (min-width: 1024px) {
+  .lg\:col-span-5 {
+    grid-column: span 5 / span 5;
+  }
+
+  .lg\:col-span-7 {
+    grid-column: span 7 / span 7;
+  }
+
   .lg\:mb-12 {
     margin-bottom: 3rem;
   }
@@ -2139,6 +2339,10 @@ body .btn-oftalmed-secondary:active {
     flex: 1 1 0%;
   }
 
+  .lg\:grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -2149,6 +2353,10 @@ body .btn-oftalmed-secondary:active {
 
   .lg\:gap-10 {
     gap: 2.5rem;
+  }
+
+  .lg\:gap-12 {
+    gap: 3rem;
   }
 
   .lg\:gap-6 {
@@ -2196,8 +2404,16 @@ body .btn-oftalmed-secondary:active {
     padding-bottom: 3rem;
   }
 
+  .lg\:pb-12 {
+    padding-bottom: 3rem;
+  }
+
   .lg\:pr-4 {
     padding-right: 1rem;
+  }
+
+  .lg\:pt-0 {
+    padding-top: 0px;
   }
 
   .lg\:text-3xl {
