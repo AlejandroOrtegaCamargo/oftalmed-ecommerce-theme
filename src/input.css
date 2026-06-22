@@ -10,17 +10,17 @@
 
 @layer components {
   /* ==========================================================================
-     COMPONENTES INTERACTIVOS GLOBALES (SISTEMA DE DISEÑO OFTALMED)
+     1. COMPONENTES GLOBALES Y TARJETAS (SISTEMA BENTO)
      ========================================================================== */
-
-  /* Contenedor universal Bento - SIN HOVER */
   .woocommerce .bento-box {
     @apply bg-transparent lg:bg-surface-default lg:rounded-bento lg:border lg:border-surface-line lg:shadow-bento p-6 lg:p-10 m-0 w-full !important;
   }
 
-  /* Tarjeta con efecto hover (usar solo en elementos interactivos) */
   .oftalmed-card {
-    @apply bg-surface-default rounded-bento border border-surface-line p-5 lg:p-6 flex flex-col justify-between transition-all duration-300 ease-out shadow-bento;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @apply bg-surface-default rounded-bento border border-surface-line p-5 lg:p-6 transition-all duration-300 ease-out shadow-bento;
     will-change: transform, box-shadow;
   }
 
@@ -29,29 +29,63 @@
     transform: translateY(-4px) scale(1.015);
   }
 
+  /* ==========================================================================
+     2. BOTONES PRINCIPALES Y CTAS
+     ========================================================================== */
   .btn-oftalmed-secondary {
-    @apply w-full flex items-center justify-center h-10 lg:h-11 text-center text-sm font-bold text-white bg-brand-accent rounded-btn transition-all duration-200 ease-out no-underline shadow-sm select-none border border-transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @apply w-full h-10 lg:h-11 text-center text-sm font-bold text-white bg-brand-accent rounded-btn transition-all duration-200 ease-out no-underline shadow-sm select-none border border-transparent;
   }
-
   body .btn-oftalmed-secondary:hover { @apply bg-brand-hover text-white shadow-md; }
   body .btn-oftalmed-secondary:active { @apply scale-[0.97]; }
 
-  /* ==========================================================================
-     MÓDULO: CARRITO DE COMPRAS (WIDGETS Y PASOS)
-     ========================================================================== */
+  .woocommerce .wc-proceed-to-checkout,
+  .woocommerce #payment { @apply mt-8; }
 
+  .woocommerce .wc-proceed-to-checkout a.checkout-button,
+  .woocommerce #payment #place_order {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @apply w-full h-[52px] bg-brand-accent text-white text-base font-bold rounded-btn no-underline transition-all duration-300;
+  }
+
+  .woocommerce .wc-proceed-to-checkout a.checkout-button:hover,
+  .woocommerce #payment #place_order:hover {
+    @apply bg-brand-hover shadow-btn-hover;
+    transform: translateY(-2px);
+  }
+
+  .woocommerce .btn-continue-shopping {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @apply w-full h-[52px] border border-surface-ash bg-surface-default text-text-body text-sm font-bold rounded-btn no-underline transition-all duration-200;
+  }
+
+  /* ==========================================================================
+     3. MÓDULO: CARRITO DE COMPRAS (WIDGETS Y PASOS)
+     ========================================================================== */
   .cart-progress-bar .progress-dot { @apply block w-2.5 h-2.5 rounded-full bg-surface-line; }
   .cart-progress-bar .progress-step.is-active .progress-dot { @apply w-3 h-3 bg-brand-primary; }
   
   .btn-pill-remove { 
-    @apply inline-flex items-center justify-center cursor-pointer text-brand-primary text-[12px] font-bold px-6 py-2 rounded-pill bg-brand-light no-underline transition-all hover:bg-brand-light/70; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    @apply cursor-pointer text-brand-primary text-[12px] font-bold px-6 py-2 rounded-pill bg-brand-light no-underline transition-all hover:bg-brand-light/70; 
   }
 
   .custom-qty-styles input[type=number]::-webkit-inner-spin-button, 
   .custom-qty-styles input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none !important; margin: 0; }
   
   .woocommerce .custom-qty-styles .qty-input-field { 
-    @apply flex items-center justify-center text-center border-0 ring-0 outline-none bg-transparent; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @apply text-center border-0 ring-0 outline-none bg-transparent; 
     line-height: 1; height: 100%; 
   }
   
@@ -63,80 +97,14 @@
   .woocommerce .cart_item .line-height-none { line-height: 1; }
 
   /* ==========================================================================
-     MÓDULO: TOTALES Y RESUMEN DE PEDIDO (CARRITO)
+     4. MÓDULO: INPUTS, FORMULARIOS Y NOTIFICACIONES (CHECKOUT)
      ========================================================================== */
-  
-  /* Se aplica a .bento-box sea donde sea que esté */
-  .woocommerce .bento-box .resumen-title { @apply text-xl font-bold mb-8 text-text-heading tracking-tight block; }
-
-  .woocommerce .cart_totals table.shop_table {
-    @apply w-full border-none p-0 m-0 bg-transparent;
-  }
-
-  .woocommerce .cart_totals table.shop_table tr {
-    @apply flex items-center justify-between mb-4 pb-4 border-b border-surface-line last:border-none last:mb-0 last:pb-0 bg-transparent;
-  }
-
-  .woocommerce .cart_totals table.shop_table th {
-    @apply text-sm lg:text-base font-medium text-text-muted p-0 text-left border-none bg-transparent;
-  }
-
-  .woocommerce .cart_totals table.shop_table td {
-    @apply text-sm lg:text-base font-bold text-text-heading p-0 text-right border-none bg-transparent;
-  }
-
-  /* ==========================================================================
-     MÓDULO: BOTONES PRINCIPALES (CTAs)
-     ========================================================================== */
-  
-  .woocommerce .wc-proceed-to-checkout,
-  .woocommerce #payment { @apply mt-8; }
-
-  .woocommerce .wc-proceed-to-checkout a.checkout-button,
-  .woocommerce #payment #place_order {
-    @apply flex items-center justify-center w-full h-[52px] bg-brand-accent text-white text-base font-bold rounded-btn no-underline transition-all duration-300;
-  }
-
-  .woocommerce .wc-proceed-to-checkout a.checkout-button:hover,
-  .woocommerce #payment #place_order:hover {
-    @apply bg-brand-hover shadow-btn-hover;
-    transform: translateY(-2px);
-  }
-
-  .woocommerce .btn-continue-shopping {
-    @apply flex items-center justify-center w-full h-[52px] border border-surface-ash bg-surface-default text-text-body text-sm font-bold rounded-btn no-underline transition-all duration-200;
-  }
-
-  /* ==========================================================================
-     MÓDULO: WOOCOMMERCE UI GLOBAL Y FIXES DE CHECKOUT
-     ========================================================================== */
-
-  /* Ocultar títulos nativos Astra en checkout */
-  body.woocommerce-checkout header.entry-header,
-  body.woocommerce-checkout h1.entry-title { display: none !important; }
-
-  /* NOTIFICACIONES */
-  .woocommerce .woocommerce-notices-wrapper:not(:empty) { @apply block mb-8 w-full; }
-  .woocommerce .woocommerce-message, .woocommerce .woocommerce-error, .woocommerce .woocommerce-info {
-    @apply flex items-center justify-between p-4 mb-4 rounded-btn text-[13px] lg:text-sm font-medium shadow-sm border;
-    list-style: none; margin-left: 0;
-  }
-  .woocommerce .woocommerce-message { @apply bg-ui-success-bg text-ui-success-text border-ui-success-border; }
-  .woocommerce .woocommerce-error { @apply bg-ui-error-bg text-ui-error-text border-ui-error-border; }
-  .woocommerce .woocommerce-info { @apply bg-ui-info-bg text-brand-primary border-ui-info-border; }
-  .woocommerce .woocommerce-message::before, .woocommerce .woocommerce-error::before, .woocommerce .woocommerce-info::before { content: none; }
-
-  /* ==========================================================================
-     MÓDULO: PURIFICACIÓN DE INPUTS Y FORMULARIOS (CHECKOUT PREMIUM)
-     ========================================================================== */
-
   .woocommerce-checkout .form-row { @apply mb-5; }
 
   .woocommerce-checkout label {
     @apply block text-[13px] font-bold text-text-heading mb-2 ml-1 tracking-tight;
   }
 
-  /* Estilo base para todos los inputs y selects */
   .woocommerce-checkout input[type="text"],
   .woocommerce-checkout input[type="email"],
   .woocommerce-checkout input[type="tel"],
@@ -146,19 +114,14 @@
     @apply w-full h-[48px] px-4 rounded-input border border-surface-line bg-surface-default text-[14px] text-text-heading placeholder:text-text-muted transition-all duration-200;
   }
 
-  /* Efecto Focus Elegante */
   .woocommerce-checkout input:focus,
   .woocommerce-checkout select:focus,
   .woocommerce-checkout textarea:focus {
     @apply border-brand-primary ring-2 ring-brand-primary/20 outline-none;
   }
 
-  /* Etiquetas obligatorias (el asterisco rojo) */
-  .woocommerce-checkout .required {
-    @apply text-brand-accent font-bold no-underline ml-1;
-  }
+  .woocommerce-checkout .required { @apply text-brand-accent font-bold no-underline ml-1; }
 
-  /* Estilo de los Selects (Menús desplegables) */
   .woocommerce-checkout select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23666'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
     background-position: right 1rem center;
@@ -167,148 +130,157 @@
     @apply appearance-none pr-10;
   }
 
- /* ==========================================================================
-     MÓDULO: AVISO DE CUPÓN (DESACTIVADO - OCULTO EN CHECKOUT)
-     ========================================================================== 
+  .woocommerce-form-coupon-toggle,
+  .woocommerce-checkout .custom-checkout-coupon { display: none !important; }
+
+  .woocommerce-notices-wrapper { margin-bottom: 0 !important; padding-bottom: 0 !important; }
   
-  .woocommerce-form-coupon-toggle .woocommerce-info {
-    @apply flex items-center justify-center p-4 bg-surface-default border border-surface-line rounded-bento text-sm font-medium shadow-sm transition-all;
+  .woocommerce-notices-wrapper .woocommerce-message,
+  .woocommerce-notices-wrapper .woocommerce-error,
+  .woocommerce-notices-wrapper .woocommerce-info {
+      margin-bottom: 2rem !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @apply p-4 rounded-btn text-[13px] lg:text-sm font-medium shadow-sm border;
+      list-style: none; margin-left: 0;
   }
 
-  .woocommerce form.checkout_coupon {
-    @apply p-6 bg-surface-default border border-surface-line rounded-bento shadow-bento mt-2 !important;
-  }
-
-  .woocommerce form.checkout_coupon input[type="text"] {
-    @apply h-[48px] border border-surface-line rounded-input !important;
-  }
-
-  .woocommerce form.checkout_coupon button {
-    @apply bg-brand-primary text-white font-bold px-6 rounded-btn !important;
-  }
-  */
-
-  /* Ocultar aviso de cupón */
-.woocommerce-form-coupon-toggle,
-.woocommerce-checkout .custom-checkout-coupon {
-    display: none !important;
-}
+  .woocommerce .woocommerce-message { @apply bg-ui-success-bg text-ui-success-text border-ui-success-border; }
+  .woocommerce .woocommerce-error { @apply bg-ui-error-bg text-ui-error-text border-ui-error-border; }
+  .woocommerce .woocommerce-info { @apply bg-ui-info-bg text-brand-primary border-ui-info-border; }
+  .woocommerce .woocommerce-message::before, .woocommerce .woocommerce-error::before, .woocommerce .woocommerce-info::before { content: none; }
 
   /* ==========================================================================
-     FIX: TABLA DE RESUMEN DE PEDIDO EN CHECKOUT
+     5. FIXES DE TABLAS WOOCOMMERCE (RESUMEN DE PEDIDO)
      ========================================================================== */
+  .woocommerce .bento-box .resumen-title { @apply text-xl font-bold mb-8 text-text-heading tracking-tight block; }
 
-  /* Obligamos a la tabla a comportarse como tabla y ocupar el 100% */
+  .woocommerce .cart_totals table.shop_table,
   .woocommerce-checkout-review-order table.shop_table {
     display: table !important;
-    @apply w-full border-collapse text-left mt-6;
+    @apply w-full border-collapse text-left mt-0 bg-transparent;
   }
 
-  /* Devolvemos el display nativo a filas y celdas */
-  .woocommerce-checkout-review-order table.shop_table tr {
+  /* ==========================================
+     A) CARRITO - INTACTO Y HERMOSO
+     ========================================== */
+  .woocommerce .cart_totals table.shop_table tr {
     display: table-row !important;
+    background: transparent !important;
+    border-bottom: 1px solid #e5e7eb !important;
   }
+
+  /* ==========================================
+     B) FINALIZAR COMPRA (CHECKOUT) - AJUSTES
+     ========================================== */
+  /* 1. Matar el contorno/marco feo exterior */
+  #order_review,
+  #order_review table.shop_table {
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* 2. Regresar las líneas divisorias horizontales internas */
+  #order_review table.shop_table tr {
+    display: table-row !important;
+    background: transparent !important;
+    border-bottom: 1px solid #e5e7eb !important; /* Regresamos la línea */
+  }
+
+  /* ==========================================
+     C) CELDAS Y TEXTOS (AMBAS TABLAS)
+     ========================================== */
+  .woocommerce .cart_totals table.shop_table th,
+  .woocommerce .cart_totals table.shop_table td,
   .woocommerce-checkout-review-order table.shop_table th,
   .woocommerce-checkout-review-order table.shop_table td {
     display: table-cell !important;
-    @apply py-4 border-b border-surface-line align-middle;
+    @apply py-4 border-none bg-transparent align-middle;
   }
 
-  /* Encabezados de la tabla (Producto / Subtotal) */
-  .woocommerce-checkout-review-order table.shop_table thead th {
-    @apply text-[13px] font-bold text-text-muted uppercase tracking-wider border-b-2;
-  }
-
-  /* Nombres de los productos */
-  .woocommerce-checkout-review-order table.shop_table tbody td.product-name {
-    @apply text-sm text-text-heading font-medium pr-4;
-  }
-
-  /* Precios y Subtotales (Alineados a la derecha) */
-  .woocommerce-checkout-review-order table.shop_table .product-total,
-  .woocommerce-checkout-review-order table.shop_table tfoot td {
-    @apply text-right text-sm font-bold text-text-heading;
-  }
-  .woocommerce-checkout-review-order table.shop_table tfoot th {
-    @apply text-sm font-medium text-text-muted;
-  }
-
-  /* Fila final del TOTAL */
-  .woocommerce-checkout-review-order table.shop_table tr.order-total th {
-    @apply text-lg font-bold text-text-heading pt-6 border-none;
-  }
-  .woocommerce-checkout-review-order table.shop_table tr.order-total td strong {
-    @apply text-2xl lg:text-3xl font-black text-text-heading pt-6 border-none block leading-none;
-  }
-
- /* ==========================================================================
-    FIX 2: NEUTRALIZAR EL GRID NATIVO DE ASTRA (CSS GRID + TABLA LIMPIA)
-    ========================================================================== */
- 
-  /* Dejamos que Tailwind y CSS Grid controlen los anchos al 100% */
-  .woocommerce-checkout #customer_details,
-  .woocommerce-checkout #order_review_heading,
-  .woocommerce-checkout #order_review {
-    float: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    width: 100% !important; 
-  }
-
-  /* ==========================================================================
-    OPCIÓN NUCLEAR: DESTRUIR BORDES DE ASTRA EN LA TABLA
-    ========================================================================== */
-
-  /* 1. Matar absolutamente cualquier borde, sombra o contorno en el contenedor y la tabla */
-  .woocommerce-checkout #order_review,
-  .woocommerce-checkout-review-order table.shop_table,
-  .woocommerce-checkout-review-order table.shop_table thead,
-  .woocommerce-checkout-review-order table.shop_table tbody,
-  .woocommerce-checkout-review-order table.shop_table tfoot,
-  .woocommerce-checkout-review-order table.shop_table tr,
+  /* Solo para checkout, quitar bordes verticales de Astra */
   .woocommerce-checkout-review-order table.shop_table th,
   .woocommerce-checkout-review-order table.shop_table td {
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-  }
-
-  /* 2. Re-dibujar SOLAMENTE la línea sutil inferior en las celdas (usando tu color surface-line) */
-  .woocommerce-checkout-review-order table.shop_table th,
-  .woocommerce-checkout-review-order table.shop_table td {
-    @apply border-b border-surface-line !important;
-    border-top: none !important;
     border-left: none !important;
     border-right: none !important;
   }
 
-  /* 3. Quitar la línea inferior a la fila final (Total) para que respire */
-  .woocommerce-checkout-review-order table.shop_table tr.order-total th,
-  .woocommerce-checkout-review-order table.shop_table tr.order-total td,
-  .woocommerce-checkout-review-order table.shop_table tfoot tr:last-child th,
-  .woocommerce-checkout-review-order table.shop_table tfoot tr:last-child td {
-    border-bottom: none !important;
+  .woocommerce-checkout-review-order table.shop_table thead th {
+    @apply text-[13px] font-bold text-text-muted uppercase tracking-wider border-b-2 border-surface-line;
   }
+
+  .woocommerce-checkout-review-order table.shop_table tbody td.product-name { @apply text-sm text-text-heading font-medium pr-4; }
   
-  /* Ajuste de anchos para que el texto no se apachurre */
+  .woocommerce .cart_totals table.shop_table td,
+  .woocommerce-checkout-review-order table.shop_table .product-total,
+  .woocommerce-checkout-review-order table.shop_table tfoot td {
+    @apply text-right text-sm font-bold text-text-heading;
+  }
+
+  .woocommerce .cart_totals table.shop_table th,
+  .woocommerce-checkout-review-order table.shop_table tfoot th {
+    @apply text-sm font-medium text-text-muted text-left;
+  }
+
+  /* Excepción para que el total final no tenga línea divisoria */
+  .woocommerce-checkout-review-order table.shop_table tr.order-total { border-bottom: none !important; }
+  
+  .woocommerce-checkout-review-order table.shop_table tr.order-total th { @apply text-lg font-bold text-text-heading pt-6 border-none; }
+  .woocommerce-checkout-review-order table.shop_table tr.order-total td strong {
+    @apply text-2xl lg:text-3xl font-black text-text-heading pt-6 border-none block leading-none;
+  }
+
   .woocommerce-checkout-review-order table.shop_table th.product-name,
-  .woocommerce-checkout-review-order table.shop_table td.product-name {
-    width: 65% !important;
-  }
+  .woocommerce-checkout-review-order table.shop_table td.product-name { width: 65% !important; }
   .woocommerce-checkout-review-order table.shop_table th.product-total,
-  .woocommerce-checkout-review-order table.shop_table td.product-total {
-    width: 35% !important;
+  .woocommerce-checkout-review-order table.shop_table td.product-total { width: 35% !important; }
+  /* ==========================================================================
+     6. FIXES NUCLEARES: ASTRA, MÁRGENES Y ANCLAJE VISUAL
+     ========================================================================== */
+  body.woocommerce-cart .site-content,
+  body.woocommerce-checkout .site-content,
+  body.woocommerce-cart .ast-container,
+  body.woocommerce-checkout .ast-container,
+  body.woocommerce-cart #primary,
+  body.woocommerce-checkout #primary,
+  body.woocommerce-cart .content-area,
+  body.woocommerce-checkout .content-area {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      margin-bottom: 0 !important;
   }
 
-  /* ==========================================================================
-    FIX 3: BORDES DE TÍTULO Y SCROLLBAR PREMIUM PARA CHECKOUT STICKY
-    ========================================================================== */
+  .woocommerce::before,
+  .woocommerce::after { display: none !important; content: none !important; }
+  .woocommerce-checkout #order_review_heading { border: none !important; background: transparent !important; }
 
-  /* Destruir el borde nativo de Astra en el título "Tu pedido" */
-  .woocommerce-checkout #order_review_heading {
-    border: none !important;
-    background: transparent !important;
+  body.woocommerce-checkout header.entry-header,
+  body.woocommerce-cart header.entry-header,
+  body.woocommerce-checkout h1.entry-title,
+  body.woocommerce-cart h1.entry-title { 
+      display: none !important; 
+      margin: 0 !important; padding: 0 !important;
+  }
+
+  .woocommerce-checkout #customer_details,
+  .woocommerce-checkout #order_review_heading,
+  .woocommerce-checkout #order_review {
+    float: none !important; padding: 0 !important; margin: 0 !important; width: 100% !important; 
+  }
+
+  .woocommerce .flex.flex-col.md\:flex-row.justify-between.items-start.md\:items-center {
+      min-height: 100px !important; 
+      display: flex !important;
+      align-items: center !important;
+  }
+
+  .woocommerce h2.text-4xl {
+      height: 48px !important;      
+      line-height: 48px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      align-items: center !important;
   }
 }

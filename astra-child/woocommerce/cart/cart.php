@@ -11,15 +11,12 @@ do_action('woocommerce_before_cart'); ?>
 
 <div class="woocommerce max-w-6xl mx-auto py-8 lg:py-12 px-4">
 
-    <div class="woocommerce-notices-wrapper mb-8">
+    <div class="woocommerce-notices-wrapper">
         <?php wc_print_notices(); ?>
     </div>
 
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12 pb-6 border-b border-surface-line">
-
-        <h2 class="text-4xl font-bold text-brand-primary tracking-tight m-0">
-            Mi carrito
-        </h2>
+        <h2 class="text-4xl font-bold text-brand-primary tracking-tight m-0">Mi carrito</h2>
 
         <nav class="flex w-full max-w-md items-center pt-2 pb-8 mt-4 md:mt-0" aria-label="Progreso del pedido">
             <div class="relative flex flex-col items-center justify-center">

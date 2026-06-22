@@ -17,16 +17,16 @@ if (! $checkout->is_registration_enabled() && $checkout->is_registration_require
 }
 ?>
 
-<div class="woocommerce max-w-6xl mx-auto pt-0 pb-8 lg:pt-0 lg:pb-12 px-4">
+<div class="woocommerce max-w-6xl mx-auto py-8 lg:py-12 px-4">
 
-    <div class="woocommerce-notices-wrapper mb-8">
+    <div class="woocommerce-notices-wrapper">
         <?php wc_print_notices(); ?>
     </div>
 
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12 pb-6 border-b border-surface-line">
-        <h2 class="text-4xl font-bold text-brand-primary tracking-tight m-0">Finalizar compra</h2>
+        <h2 class="text-4xl font-bold text-brand-primary tracking-tight m-0">Comprobar</h2>
 
-        <nav class="flex w-full max-w-md items-center pt-2 pb-8 mt-4 md:mt-0">
+        <nav class="flex w-full max-w-md items-center pt-2 pb-8 mt-4 md:mt-0" aria-label="Progreso del pedido">
             <div class="relative flex flex-col items-center justify-center cursor-pointer" onclick="window.location='<?php echo esc_url(wc_get_cart_url()); ?>'">
                 <div class="w-6 h-6 rounded-full bg-brand-primary flex items-center justify-center z-10">
                     <svg class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
