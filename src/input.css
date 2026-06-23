@@ -156,41 +156,35 @@
      ========================================================================== */
   .woocommerce .bento-box .resumen-title { @apply text-xl font-bold mb-8 text-text-heading tracking-tight block; }
 
+  /* Estructura común */
   .woocommerce .cart_totals table.shop_table,
   .woocommerce-checkout-review-order table.shop_table {
     display: table !important;
     @apply w-full border-collapse text-left mt-0 bg-transparent;
   }
 
-  /* ==========================================
-     A) CARRITO - INTACTO Y HERMOSO
-     ========================================== */
+  /* CARRITO: Estilo con líneas */
   .woocommerce .cart_totals table.shop_table tr {
     display: table-row !important;
     background: transparent !important;
     border-bottom: 1px solid #e5e7eb !important;
   }
 
-  /* ==========================================
-     B) FINALIZAR COMPRA (CHECKOUT) - AJUSTES
-     ========================================== */
-  /* 1. Matar el contorno/marco feo exterior */
+  /* CHECKOUT: Sin contorno exterior */
   #order_review,
-  #order_review table.shop_table {
+  .woocommerce-checkout-review-order table.shop_table {
     border: none !important;
     box-shadow: none !important;
   }
 
-  /* 2. Regresar las líneas divisorias horizontales internas */
-  #order_review table.shop_table tr {
+  /* CHECKOUT: Líneas horizontales internas */
+  .woocommerce-checkout-review-order table.shop_table tr {
     display: table-row !important;
     background: transparent !important;
-    border-bottom: 1px solid #e5e7eb !important; /* Regresamos la línea */
+    border-bottom: 1px solid #e5e7eb !important;
   }
 
-  /* ==========================================
-     C) CELDAS Y TEXTOS (AMBAS TABLAS)
-     ========================================== */
+  /* Celdas comunes */
   .woocommerce .cart_totals table.shop_table th,
   .woocommerce .cart_totals table.shop_table td,
   .woocommerce-checkout-review-order table.shop_table th,
@@ -199,7 +193,7 @@
     @apply py-4 border-none bg-transparent align-middle;
   }
 
-  /* Solo para checkout, quitar bordes verticales de Astra */
+  /* Limpieza de bordes verticales Astra/WC */
   .woocommerce-checkout-review-order table.shop_table th,
   .woocommerce-checkout-review-order table.shop_table td {
     border-left: none !important;
@@ -223,7 +217,7 @@
     @apply text-sm font-medium text-text-muted text-left;
   }
 
-  /* Excepción para que el total final no tenga línea divisoria */
+  /* Ajustes finales de totales */
   .woocommerce-checkout-review-order table.shop_table tr.order-total { border-bottom: none !important; }
   
   .woocommerce-checkout-review-order table.shop_table tr.order-total th { @apply text-lg font-bold text-text-heading pt-6 border-none; }
@@ -235,6 +229,17 @@
   .woocommerce-checkout-review-order table.shop_table td.product-name { width: 65% !important; }
   .woocommerce-checkout-review-order table.shop_table th.product-total,
   .woocommerce-checkout-review-order table.shop_table td.product-total { width: 35% !important; }
+
+  /* Título dinámico para los métodos de pago */
+  .woocommerce-checkout #payment ul.payment_methods::before {
+      content: "Seleccione su método de pago";
+      display: block;
+      font-size: 1.125rem; /* Equivalente a text-lg */
+      font-weight: 700;
+      color: var(--color-text-heading, #111827);
+      margin-bottom: 1.25rem;
+  }
+
   /* ==========================================================================
      6. FIXES NUCLEARES: ASTRA, MÁRGENES Y ANCLAJE VISUAL
      ========================================================================== */
@@ -283,4 +288,63 @@
       display: flex !important;
       align-items: center !important;
   }
-}
+
+  /* ==========================================================================
+     7. MÓDULO: MÉTODOS DE PAGO BENTO (NATIVO WOOCOMMERCE)
+     ========================================================================== */
+
+  /* Título dinámico superior */
+  .woocommerce-checkout #payment ul.payment_methods::before {
+      content: "Seleccione su método de pago";
+      @apply block text-[18px] font-bold text-text-heading mb-5;
+  }
+
+  /* Reset de lista */
+  .woocommerce-checkout #payment ul.payment_methods {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+  }
+
+  /* 1. Tarjeta Bento Inactiva (Por defecto) */
+  .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method {
+      @apply relative mb-4 rounded-bento bg-surface-default transition-all duration-300 overflow-hidden;
+      border: 1px solid var(--color-surface-line, #e5e7eb) !important; /* Forzamos a que exista el borde gris */
+  }
+
+  /* 2. Tarjeta Bento Activa (Cuando el radio está seleccionado) */
+  .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method:has(input[type="radio"]:checked) {
+      border: 1px solid var(--color-brand-primary, #145bc4) !important; /* Forzamos el borde azul */
+      @apply shadow-sm;
+  }
+
+  /* 3. Ocultar Radio Button nativo sin romper JS de WooCommerce */
+  .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method input[type="radio"] {
+      @apply absolute opacity-0 w-0 h-0 -z-10 pointer-events-none m-0;
+  }
+
+  /* 4. El Label como área de clic (Cabecera) */
+  .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method label {
+      @apply flex items-center flex-wrap gap-3 p-4 lg:p-5 m-0 w-full font-bold text-text-heading cursor-pointer box-border;
+  }
+
+  /* Logos dentro del label */
+  .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method label img {
+      @apply max-h-6 object-contain m-0;
+  }
+
+  /* 5. Contenedor de descripción/formularios (Payment Box) */
+  .woocommerce-checkout #payment div.payment_box {
+      @apply px-4 lg:px-5 pb-4 lg:pb-5 pt-0 m-0 bg-transparent text-sm text-text-body border-0;
+  }
+
+  /* Línea divisoria superior del formulario (solo visible cuando se abre) */
+  .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method:has(input[type="radio"]:checked) div.payment_box {
+      @apply border-t border-surface-line pt-4 lg:pt-5 mt-0;
+  }
+
+  /* Ocultar el molesto triangulito gris nativo de WooCommerce */
+  .woocommerce-checkout #payment div.payment_box::before {
+      display: none !important;
+  }
+} 
