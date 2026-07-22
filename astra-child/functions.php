@@ -105,3 +105,30 @@ function oftalmed_custom_checkout_button_text()
     </a>
 <?php
 }
+
+// =============================================
+// 7. PERSONALIZACIÓN DE MÉTODOS DE PAGO (BENTO UI)
+// =============================================
+
+// Modificar la descripción redundante de PayPal
+add_filter('woocommerce_gateway_description', 'oftalmed_custom_paypal_description', 10, 2);
+function oftalmed_custom_paypal_description($description, $gateway_id)
+{
+    // ACTUALIZADO: El identificador real de tu plugin es 'ppcp-gateway'
+    if ('ppcp-gateway' === $gateway_id) {
+        $description = '<p class="text-text-muted text-[13px] leading-relaxed mt-1">Serás redirigido de forma segura a la plataforma de PayPal para completar tu transacción.</p>';
+    }
+    return $description;
+}
+
+// Inyectar el logotipo oficial junto al título de PayPal
+add_filter('woocommerce_gateway_icon', 'oftalmed_custom_paypal_icon', 10, 2);
+function oftalmed_custom_paypal_icon($icon, $gateway_id)
+{
+    // ACTUALIZADO: El identificador real de tu plugin es 'ppcp-gateway'
+    if ('ppcp-gateway' === $gateway_id) {
+        $logo_url = get_stylesheet_directory_uri() . '/assets/img/paypal-logo.svg';
+        $icon = '<img src="' . esc_url($logo_url) . '" alt="Logo de PayPal" class="inline-block h-5 ml-4 object-contain relative -top-[1px]" />';
+    }
+    return $icon;
+}

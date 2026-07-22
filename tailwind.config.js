@@ -42,7 +42,7 @@ module.exports = {
         text: {
           heading: '#111827',
           body: '#374151',
-          muted: '#9ca3af',
+          muted: '#6c757d',
         },
         ui: {
           success: { bg: '#f0fdf4', border: '#bbf7d0', text: '#166534' },

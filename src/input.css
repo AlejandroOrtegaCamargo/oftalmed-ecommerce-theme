@@ -230,6 +230,11 @@
   .woocommerce-checkout-review-order table.shop_table th.product-total,
   .woocommerce-checkout-review-order table.shop_table td.product-total { width: 35% !important; }
 
+  /* NUEVO: Jerarquía visual - Reducir peso del multiplicador de cantidad (x 1) */
+  .woocommerce-checkout-review-order table.shop_table tbody td.product-name strong.product-quantity {
+      @apply text-text-muted font-normal text-sm ml-1;
+  }
+
   /* Título dinámico para los métodos de pago */
   .woocommerce-checkout #payment ul.payment_methods::before {
       content: "Seleccione su método de pago";
@@ -323,14 +328,32 @@
       @apply absolute opacity-0 w-0 h-0 -z-10 pointer-events-none m-0;
   }
 
-  /* 4. El Label como área de clic (Cabecera) */
+ /* 4. El Label como área de clic (Cabecera) */
   .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method label {
-      @apply flex items-center flex-wrap gap-3 p-4 lg:p-5 m-0 w-full font-bold text-text-heading cursor-pointer box-border;
+      /* Añadido 'relative' para posicionar el check y 'pr-12' para dar espacio a la derecha */
+      @apply flex items-center flex-wrap gap-3 p-4 lg:p-5 pr-12 m-0 w-full font-bold text-text-heading cursor-pointer box-border relative;
   }
 
   /* Logos dentro del label */
   .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method label img {
       @apply max-h-6 object-contain m-0;
+  }
+
+  /* NUEVO: Checkmark premium SVG para el método seleccionado */
+  .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method input[type="radio"]:checked + label::after {
+      content: "";
+      /* Ícono SVG limpio (stroke %23145bc4 equivale a tu var --color-brand-primary) */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23145bc4' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      /* Animación sutil de entrada */
+      @apply absolute right-5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] opacity-0 scale-50 transition-all duration-300;
+  }
+
+  /* Mostrar el Checkmark solo cuando está activo */
+  .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method input[type="radio"]:checked + label::after {
+      @apply opacity-100 scale-100;
   }
 
   /* 5. Contenedor de descripción/formularios (Payment Box) */
@@ -347,4 +370,79 @@
   .woocommerce-checkout #payment div.payment_box::before {
       display: none !important;
   }
-} 
+
+  /* ==========================================================================
+     8. MÓDULO: OPENPAY CHECKOUT CLEANUP (OPTIMIZADO)
+     ========================================================================== */
+
+  /* 1. Ocultar el muro de logos, titulares y separadores de Openpay */
+  #wc_openpay_gateway h5,
+  #wc_openpay_gateway h3,
+  #wc_openpay_gateway img[src*="credit_cards"],
+  #wc_openpay_gateway img[src*="debit_cards"],
+  #wc_openpay_gateway div[style*="border-bottom: 1px solid"] {
+      display: none !important;
+  }
+
+  /* 2. Forzar inputs Bento y anular estilos en línea de Openpay (padding y font-size) */
+  #payment_form_openpay_cards input[type="text"],
+  #payment_form_openpay_cards input[type="number"],
+  #payment_form_openpay_cards select {
+      @apply w-full h-[48px] rounded-input border border-surface-line bg-surface-default text-[14px] text-text-heading placeholder:text-text-muted transition-all duration-200 box-border !important;
+      padding: 0 16px !important; /* Sobrescribe el padding: 8px de Openpay */
+      font-size: 14px !important; /* Sobrescribe el font-size: 1.2em de Openpay */
+      box-shadow: none !important;
+      margin-top: 0 !important;
+      max-width: 100% !important;
+  }
+
+  #payment_form_openpay_cards input:focus,
+  #payment_form_openpay_cards select:focus {
+      @apply border-brand-primary ring-2 ring-brand-primary/20 outline-none !important;
+  }
+
+  /* 3. Limpiar Labels, arreglar márgenes y mantener el asterisco alineado */
+  #payment_form_openpay_cards label {
+      @apply block text-[13px] font-bold text-text-heading mb-2 ml-1 tracking-tight !important;
+      display: block !important;
+      width: 100% !important;
+      margin: 0 0 8px 0 !important;
+      padding: 0 !important;
+  }
+  
+  #payment_form_openpay_cards label .required {
+      @apply text-brand-accent ml-1 font-normal !important;
+      display: inline !important; /* Evita que el asterisco salte de línea */
+  }
+
+  /* 4. Alinear Fecha de Expiración y CVV en la misma línea */
+  #payment_form_openpay_cards .form-row-first,
+  #payment_form_openpay_cards .form-row-last {
+      @apply w-full md:w-[48%] mt-4 !important;
+      float: none !important;
+      display: inline-block !important;
+      vertical-align: top !important;
+  }
+  
+  #payment_form_openpay_cards .form-row-last {
+      float: right !important; /* Mantiene el CVV a la derecha */
+  }
+
+  /* 5. Suavizar el Sello de Seguridad (Footer) */
+  #wc_openpay_gateway .openpay-info,
+  #wc_openpay_gateway .logo-openpay {
+      @apply flex flex-col items-center justify-center mt-6 pt-5 border-t border-surface-line opacity-60 grayscale transition-all duration-300 hover:grayscale-0 hover:opacity-100 !important;
+  }
+
+  #wc_openpay_gateway .openpay-info img {
+      @apply max-h-6 mb-3 object-contain !important;
+      height: auto !important; /* Previene distorsiones */
+  }
+
+  #wc_openpay_gateway .openpay-info p,
+  #wc_openpay_gateway .openpay-info span,
+  #wc_openpay_gateway .openpay-info div {
+      @apply text-text-muted text-xs text-center leading-relaxed !important;
+      max-width: 90%;
+  }
+}

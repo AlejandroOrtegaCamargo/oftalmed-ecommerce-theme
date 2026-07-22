@@ -800,7 +800,7 @@ body .btn-oftalmed-secondary:active {
           user-select: none;
   background-color: transparent;
   --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+  color: rgb(108 117 125 / var(--tw-text-opacity, 1));
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
@@ -871,7 +871,7 @@ body .btn-oftalmed-secondary:active {
 
 .woocommerce-checkout input[type="text"]::-moz-placeholder, .woocommerce-checkout input[type="email"]::-moz-placeholder, .woocommerce-checkout input[type="tel"]::-moz-placeholder, .woocommerce-checkout input[type="password"]::-moz-placeholder, .woocommerce-checkout select::-moz-placeholder, .woocommerce-checkout textarea::-moz-placeholder {
   --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+  color: rgb(108 117 125 / var(--tw-text-opacity, 1));
 }
 
 .woocommerce-checkout input[type="text"]::placeholder,
@@ -881,7 +881,7 @@ body .btn-oftalmed-secondary:active {
   .woocommerce-checkout select::placeholder,
   .woocommerce-checkout textarea::placeholder {
   --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+  color: rgb(108 117 125 / var(--tw-text-opacity, 1));
 }
 
 .woocommerce-checkout input:focus,
@@ -1072,7 +1072,7 @@ body .btn-oftalmed-secondary:active {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+  color: rgb(108 117 125 / var(--tw-text-opacity, 1));
 }
 
 .woocommerce-checkout-review-order table.shop_table tbody td.product-name {
@@ -1102,7 +1102,7 @@ body .btn-oftalmed-secondary:active {
   line-height: 1.25rem;
   font-weight: 500;
   --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+  color: rgb(108 117 125 / var(--tw-text-opacity, 1));
 }
 
 /* Ajustes finales de totales */
@@ -1148,6 +1148,17 @@ body .btn-oftalmed-secondary:active {
 .woocommerce-checkout-review-order table.shop_table th.product-total,
   .woocommerce-checkout-review-order table.shop_table td.product-total {
   width: 35% !important;
+}
+
+/* NUEVO: Jerarquía visual - Reducir peso del multiplicador de cantidad (x 1) */
+
+.woocommerce-checkout-review-order table.shop_table tbody td.product-name strong.product-quantity {
+  margin-left: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  --tw-text-opacity: 1;
+  color: rgb(108 117 125 / var(--tw-text-opacity, 1));
 }
 
 /* Título dinámico para los métodos de pago */
@@ -1287,6 +1298,10 @@ body.woocommerce-checkout header.entry-header,
 
 /* 4. El Label como área de clic (Cabecera) */
 
+.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method label {
+  /* Añadido 'relative' para posicionar el check y 'pr-12' para dar espacio a la derecha */
+}
+
 .woocommerce .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method label.flex-col.md\:flex-row.justify-between.items-start.md\:items-center {
   min-height: 100px;
   display: flex;
@@ -1294,6 +1309,7 @@ body.woocommerce-checkout header.entry-header,
 }
 
 .woocommerce-checkout #payment ul.payment_methods li.wc_payment_method label {
+  position: relative;
   margin: 0px;
   box-sizing: border-box;
   display: flex;
@@ -1303,6 +1319,7 @@ body.woocommerce-checkout header.entry-header,
   align-items: center;
   gap: 0.75rem;
   padding: 1rem;
+  padding-right: 3rem;
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity, 1));
@@ -1321,6 +1338,40 @@ body.woocommerce-checkout header.entry-header,
   max-height: 1.5rem;
   -o-object-fit: contain;
      object-fit: contain;
+}
+
+/* NUEVO: Checkmark premium SVG para el método seleccionado */
+
+.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method input[type="radio"]:checked + label::after {
+  content: "";
+  /* Ícono SVG limpio (stroke %23145bc4 equivale a tu var --color-brand-primary) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23145bc4' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Animación sutil de entrada */
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  height: 18px;
+  width: 18px;
+  --tw-translate-y: -50%;
+  --tw-scale-x: .5;
+  --tw-scale-y: .5;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  opacity: 0;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Mostrar el Checkmark solo cuando está activo */
+
+.woocommerce-checkout #payment ul.payment_methods li.wc_payment_method input[type="radio"]:checked + label::after {
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  opacity: 1;
 }
 
 /* 5. Contenedor de descripción/formularios (Payment Box) */
@@ -1369,6 +1420,98 @@ body.woocommerce-checkout header.entry-header,
   display: none !important;
 }
 
+/* ==========================================================================
+     8. MÓDULO: OPENPAY CHECKOUT CLEANUP (OPTIMIZADO)
+     ========================================================================== */
+
+/* 1. Ocultar el muro de logos, titulares y separadores de Openpay */
+
+#wc_openpay_gateway h5,
+  #wc_openpay_gateway h3,
+  #wc_openpay_gateway img[src*="credit_cards"],
+  #wc_openpay_gateway img[src*="debit_cards"],
+  #wc_openpay_gateway div[style*="border-bottom: 1px solid"] {
+  display: none !important;
+}
+
+/* 2. Forzar inputs Bento y anular estilos en línea de Openpay (padding y font-size) */
+
+#payment_form_openpay_cards input[type="text"],
+  #payment_form_openpay_cards input[type="number"],
+  #payment_form_openpay_cards select {
+  box-sizing: border-box !important;
+  height: 48px !important;
+  width: 100% !important;
+  border-radius: 0.5rem !important;
+  border-width: 1px !important;
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1)) !important;
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)) !important;
+  font-size: 14px !important;
+  --tw-text-opacity: 1 !important;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1)) !important;
+  transition-property: all !important;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-duration: 200ms !important;
+}
+
+#payment_form_openpay_cards input[type="text"]::-moz-placeholder, #payment_form_openpay_cards input[type="number"]::-moz-placeholder, #payment_form_openpay_cards select::-moz-placeholder {
+  --tw-text-opacity: 1 !important;
+  color: rgb(108 117 125 / var(--tw-text-opacity, 1)) !important;
+}
+
+#payment_form_openpay_cards input[type="text"]::placeholder,
+  #payment_form_openpay_cards input[type="number"]::placeholder,
+  #payment_form_openpay_cards select::placeholder {
+  --tw-text-opacity: 1 !important;
+  color: rgb(108 117 125 / var(--tw-text-opacity, 1)) !important;
+}
+
+#payment_form_openpay_cards input[type="text"],
+  #payment_form_openpay_cards input[type="number"],
+  #payment_form_openpay_cards select {
+  padding: 0 16px !important;
+  /* Sobrescribe el padding: 8px de Openpay */
+  font-size: 14px !important;
+  /* Sobrescribe el font-size: 1.2em de Openpay */
+  box-shadow: none !important;
+  margin-top: 0 !important;
+  max-width: 100% !important;
+}
+
+#payment_form_openpay_cards input:focus,
+  #payment_form_openpay_cards select:focus {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(20 91 196 / var(--tw-border-opacity, 1)) !important;
+  outline: 2px solid transparent !important;
+  outline-offset: 2px !important;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color) !important;
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color) !important;
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000) !important;
+  --tw-ring-color: rgb(20 91 196 / 0.2) !important;
+}
+
+/* 3. Limpiar Labels, arreglar márgenes y mantener el asterisco alineado */
+
+#payment_form_openpay_cards label {
+  margin-bottom: 0.5rem !important;
+  margin-left: 0.25rem !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+  --tw-text-opacity: 1 !important;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1)) !important;
+  display: block !important;
+  width: 100% !important;
+  margin: 0 0 8px 0 !important;
+  padding: 0 !important;
+}
+
+/* 4. Alinear Fecha de Expiración y CVV en la misma línea */
+
+/* 5. Suavizar el Sello de Seguridad (Footer) */
+
 .pointer-events-none {
   pointer-events: none;
 }
@@ -1387,6 +1530,10 @@ body.woocommerce-checkout header.entry-header,
 
 .inset-0 {
   inset: 0px;
+}
+
+.-top-\[1px\] {
+  top: -1px;
 }
 
 .left-1\/2 {
@@ -1470,6 +1617,10 @@ body.woocommerce-checkout header.entry-header,
   margin-bottom: 2rem;
 }
 
+.ml-4 {
+  margin-left: 1rem;
+}
+
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -1511,6 +1662,10 @@ body.woocommerce-checkout header.entry-header,
 
 .block {
   display: block;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .flex {
@@ -1559,6 +1714,10 @@ body.woocommerce-checkout header.entry-header,
 
 .h-4 {
   height: 1rem;
+}
+
+.h-5 {
+  height: 1.25rem;
 }
 
 .h-6 {
@@ -2058,6 +2217,10 @@ body.woocommerce-checkout header.entry-header,
   line-height: 1.5;
 }
 
+.leading-relaxed {
+  line-height: 1.625;
+}
+
 .leading-snug {
   line-height: 1.375;
 }
@@ -2104,7 +2267,7 @@ body.woocommerce-checkout header.entry-header,
 
 .text-text-muted {
   --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+  color: rgb(108 117 125 / var(--tw-text-opacity, 1));
 }
 
 .text-white {
@@ -2524,4 +2687,4 @@ body.woocommerce-checkout header.entry-header,
     --tw-shadow-colored: 0 5px 15px var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
-} 
+}
