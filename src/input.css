@@ -152,6 +152,46 @@
   .woocommerce .woocommerce-message::before, .woocommerce .woocommerce-error::before, .woocommerce .woocommerce-info::before { content: none; }
 
   /* ==========================================================================
+     ESTADOS DE VALIDACIÓN INTERACTIVA (MERCADO PAGO STYLE)
+     ========================================================================== */
+
+  /* 1. Ocultar todos los asteriscos de campos obligatorios en el checkout */
+  .woocommerce-checkout .required,
+  .woocommerce-checkout abbr.required,
+  #payment_form_openpay_cards label .required {
+      display: none !important;
+  }
+
+  /* 2. Estilo de Error para el Input (Borde rojo) */
+  .woocommerce-checkout .form-row.woocommerce-invalid input,
+  .woocommerce-checkout .form-row.woocommerce-invalid select,
+  .woocommerce-checkout .form-row.woocommerce-invalid textarea {
+      @apply border-ui-error-border ring-2 ring-ui-error-border/20 outline-none !important;
+  }
+
+  /* 3. Inyectar el mensaje y el ícono de alerta (Premium UI) */
+  .woocommerce-checkout .form-row.woocommerce-invalid::after {
+      content: "Este campo es obligatorio.";
+      /* Ícono SVG encodeado (un círculo con un signo de exclamación limpio) */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc2626' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='8' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'%3E%3C/line%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: 14px;
+      background-position: left center;
+      @apply block text-ui-error-text text-[12px] font-bold mt-2 pl-5; 
+      /* pl-5 da el espacio para que el ícono respire antes del texto */
+  }
+
+  /* 4. Estilo de Error para el Label (Opcional, pinta el texto superior de rojo) */
+  .woocommerce-checkout .form-row.woocommerce-invalid label {
+      @apply text-ui-error-text !important;
+  }
+
+  /* 5. Ocultar los mensajes nativos dobles de WooCommerce si aparecen */
+  .woocommerce-checkout .form-row.woocommerce-invalid .woocommerce-error {
+      display: none !important;
+  }
+
+  /* ==========================================================================
      5. FIXES DE TABLAS WOOCOMMERCE (RESUMEN DE PEDIDO)
      ========================================================================== */
   .woocommerce .bento-box .resumen-title { @apply text-xl font-bold mb-8 text-text-heading tracking-tight block; }
@@ -384,21 +424,29 @@
       display: none !important;
   }
 
-  /* 2. Forzar inputs Bento y anular estilos en línea de Openpay (padding y font-size) */
+ /* 2. Forzar inputs Bento y anular estilos en línea de Openpay (padding y font-size) */
   #payment_form_openpay_cards input[type="text"],
   #payment_form_openpay_cards input[type="number"],
-  #payment_form_openpay_cards select {
+  #payment_form_openpay_cards select,
+  select#openpay_selected_card {
       @apply w-full h-[48px] rounded-input border border-surface-line bg-surface-default text-[14px] text-text-heading placeholder:text-text-muted transition-all duration-200 box-border !important;
-      padding: 0 16px !important; /* Sobrescribe el padding: 8px de Openpay */
-      font-size: 14px !important; /* Sobrescribe el font-size: 1.2em de Openpay */
+      padding: 0 16px !important; /* Sobrescribe el padding de Openpay */
+      font-size: 14px !important; /* Sobrescribe el font-size de Openpay */
       box-shadow: none !important;
       margin-top: 0 !important;
       max-width: 100% !important;
   }
 
+  /* Anular el agresivo borde verde de validación de WooCommerce */
+  .woocommerce-js form .form-row.woocommerce-validated select#openpay_selected_card {
+      border-color: var(--color-surface-line, #e5e7eb) !important;
+  }
+
   #payment_form_openpay_cards input:focus,
-  #payment_form_openpay_cards select:focus {
+  #payment_form_openpay_cards select:focus,
+  select#openpay_selected_card:focus {
       @apply border-brand-primary ring-2 ring-brand-primary/20 outline-none !important;
+      border-color: var(--color-brand-primary, #145bc4) !important;
   }
 
   /* 3. Limpiar Labels, arreglar márgenes y mantener el asterisco alineado */
@@ -410,9 +458,10 @@
       padding: 0 !important;
   }
   
+  /* Micro-tipografía UX: Asteriscos sutiles en lugar de alerta roja */
   #payment_form_openpay_cards label .required {
-      @apply text-brand-accent ml-1 font-normal !important;
-      display: inline !important; /* Evita que el asterisco salte de línea */
+      @apply text-text-muted font-normal opacity-70 ml-1 !important;
+      display: inline !important; 
   }
 
   /* 4. Alinear Fecha de Expiración y CVV en la misma línea */
@@ -444,5 +493,34 @@
   #wc_openpay_gateway .openpay-info div {
       @apply text-text-muted text-xs text-center leading-relaxed !important;
       max-width: 90%;
+  }
+
+  /* ==========================================================================
+     9. FIXES DE VALIDACIÓN Y ALERTAS OPENPAY
+     ========================================================================== */
+
+  /* 1. Forzar el borde rojo en los inputs de Openpay */
+  .woocommerce-checkout #payment #payment_form_openpay_cards .woocommerce-invalid input[type="text"],
+  .woocommerce-checkout #payment #payment_form_openpay_cards .woocommerce-invalid input[type="number"],
+  .woocommerce-checkout #payment #payment_form_openpay_cards .woocommerce-invalid select {
+      @apply border-ui-error-border ring-2 ring-ui-error-border/20 outline-none !important;
+  }
+
+  /* 2. Suavizar y estilizar el recuadro de error de Openpay (Anulando estilos en línea) */
+  #wc_openpay_gateway ul.woocommerce-error,
+  #payment_form_openpay_cards ul.woocommerce-error,
+  .woocommerce-checkout #payment ul.woocommerce-error {
+      background-color: #fef2f2 !important; /* Rojo ultra tenue y limpio */
+      color: #991b1b !important; /* Rojo oscuro legible y elegante */
+      border: 1px solid #fecaca !important; /* Borde sutil del mismo tono */
+      border-radius: var(--border-radius-btn, 8px) !important; /* Sus esquinas redondeadas tipo bento */
+      padding: 16px !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      line-height: 1.5 !important;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+      list-style: none !important;
+      margin: 0 0 20px 0 !important;
+      display: block !important;
   }
 }

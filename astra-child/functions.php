@@ -132,3 +132,73 @@ function oftalmed_custom_paypal_icon($icon, $gateway_id)
     }
     return $icon;
 }
+
+// =============================================
+// 8. VALIDACIÓN SILENCIOSA PARA OPENPAY (JS INLINE)
+// =============================================
+add_action('wp_footer', 'oftalmed_openpay_inline_validation', 99);
+function oftalmed_openpay_inline_validation()
+{
+    // Solo cargamos este script en la página de checkout
+    if (! function_exists('is_checkout') || ! is_checkout()) return;
+?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Escuchamos los clics para delegar eventos, ya que los métodos de pago se cargan por AJAX
+            document.body.addEventListener('blur', function(e) {
+
+                // Verificamos si el elemento que perdió el foco pertenece a Openpay
+                if (e.target.matches('#payment_form_openpay_cards input[type="text"], #payment_form_openpay_cards input[type="number"], select#openpay_selected_card')) {
+
+                    // Encontramos el contenedor padre (.form-row)
+                    const parentRow = e.target.closest('.form-row');
+                    if (!parentRow) return;
+
+                    // Si está vacío, aplicamos clase de error. Si tiene texto, la quitamos.
+                    if (e.target.value.trim() === '') {
+                        parentRow.classList.add('woocommerce-invalid');
+                        parentRow.classList.remove('woocommerce-validated');
+                    } else {
+                        parentRow.classList.remove('woocommerce-invalid');
+                        parentRow.classList.add('woocommerce-validated');
+                    }
+                }
+            }, true); // El 'true' es importante para capturar el evento blur (fase de captura)
+        });
+    </script>
+<?php
+}
+
+// =============================================
+// 10. REEMPLAZAR MENSAJES DE ERROR DE OPENPAY (JS)
+// =============================================
+add_action('wp_footer', 'oftalmed_custom_openpay_error_text', 99);
+function oftalmed_custom_openpay_error_text()
+{
+    if (! function_exists('is_checkout') || ! is_checkout()) return;
+?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Creamos un observador que vigile cuando el contenedor de errores cambie o aparezca
+            const observer = new MutationObserver(function(mutations) {
+                // Usamos un selector más amplio para atrapar ambas clases del inspector
+                const errorContainer = document.querySelector('#wc_openpay_gateway ul.woocommerce-error, #wc_openpay_gateway ul.woocommerce_error');
+
+                if (errorContainer) {
+                    // Buscamos una coincidencia amplia ('ERROR 1') para asegurar que atrape la cadena
+                    if (errorContainer.textContent.includes('ERROR 1') || errorContainer.textContent.includes('El nombre del titular')) {
+                        // Lo reemplazamos por el texto limpio y corporativo
+                        errorContainer.innerHTML = '<li>Por favor, verifica que el nombre del titular coincida exactamente con el de tu tarjeta.</li>';
+                    }
+                }
+            });
+
+            // LA CLAVE: Vigilar TODO el body para sobrevivir a las recargas AJAX de WooCommerce
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    </script>
+<?php
+}
